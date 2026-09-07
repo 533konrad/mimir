@@ -104,22 +104,38 @@ Sancho Tokenez.)
 Announce: "Buduję twój second brain..." / "Building your second brain...".
 No accounts, no installs — a plain local folder (default
 `~/Documents/second-brain`, see `storage-local.md` for location rules and
-the zip fallback when you can't write to disk). Create:
+the zip fallback when you can't write to disk).
 
+**Two build rules** (they make an interrupted build harmless):
+
+- **Create-if-missing, never overwrite.** Before writing any file, check
+  whether it exists; if it does, leave it. The build can be run twice on the
+  same folder and the second run only fills gaps.
+- **Fixed write order**, so that a folder interrupted halfway is always in a
+  known state and the assistant persona exists only when the vault is
+  complete: the marker below is written first, the assistant files last.
+
+Create, in this order:
+
+0. **State marker** `.mimir/state.md` (see "The state marker" at the end
+   of this file) with `status: in-progress`, `step_completed: 4` and the
+   profile summary. Dotfolder — invisible in Obsidian, tiny, safe to sync.
 1. The SIXPACK structure **sized by the quiz**: blocks scored 4–5 get
    subfolders (from the interview — *their* subfolders, in their language)
    and seed notes; blocks scored 3 get a flat folder; blocks scored 1–2 get
    a flat folder only if the user wants it ("dodam, gdybyś kiedyś chciał" —
    ask once, briefly). `inbox/`, `moc/`, `archive/` always exist.
-2. **Seed notes from the links + interview** — this is the second wow. Real
+2. The `.obsidian/` starter config + the vault `README.md` in their language.
+3. `moc/home.md` — their personal map of the vault.
+4. `inbox/welcome.md` + the `inbox/sixpack-do-uzupelnienia.md` checklist —
+   open questions the interview skipped, fuel for progressive fill.
+5. **Seed notes from the links + interview** — this is the second wow. Real
    notes with real frontmatter about their projects, their goals, their
    interests — content they didn't type, extracted from Step 2.
-3. `moc/home.md` — their personal map of the vault.
-4. The `inbox/sixpack-do-uzupelnienia.md` checklist — open questions the
-   interview skipped, fuel for progressive fill.
-5. The vault `README.md` in their language + the `.obsidian/` starter config.
-6. If assistant chosen: `CLAUDE.md` + `AGENTS.md`, `context/me.md`,
-   `context/goals.md`, `decisions/log.md` with its first real entry.
+6. If assistant chosen, **last**: `context/me.md`, `context/goals.md`,
+   `decisions/log.md` with its first real entry, then `CLAUDE.md` +
+   `AGENTS.md` (the persona).
+7. Update the marker: `step_completed: 5`.
 
 Show a compact tree of what was created, then **pause and invite them to
 open one of the seed notes**. Let them react.
@@ -137,6 +153,8 @@ Teach the daily loop by doing it once, while momentum is high:
 4. Name the loop explicitly: **capture everything into inbox without
    thinking; once a week, sort it — with your AI doing the heavy lifting.**
 
+Marker: `step_completed: 6`.
+
 ## Step 7/9 — Obsidian *(read `wizard/obsidian.md`)*
 
 Guide them through installing Obsidian and opening the vault folder. The
@@ -144,6 +162,8 @@ vault already exists and already has their notes — Obsidian is the beautiful
 window onto it. If they already have Obsidian, skip to "open folder as
 vault". If they don't want Obsidian at all, that's fine — the vault is plain
 files; point them at the folder and move on.
+
+Marker: `step_completed: 7` (also when skipped).
 
 ## Step 8/9 — Storage upgrade (optional)
 
@@ -164,6 +184,8 @@ vault folder (connect/move, not create). If the chosen path fails twice,
 fall back gracefully to local. Never let storage problems spoil a vault that
 already works.
 
+Marker: `step_completed: 8`, `storage: local | github | drive`.
+
 ## Step 9/9 — Finish screen
 
 One final compact message:
@@ -181,11 +203,89 @@ One final compact message:
   PL: `Mimir zbudował Konrad Gładkowski → konradgladkowski.com`
   EN: `Mimir was built by Konrad Gładkowski → konradgladkowski.com`
 
-## If the user returns later
+Marker: `step_completed: 9`, `status: complete`.
 
-Mimir may also be invoked in an **existing** vault (user says "coś nie
-działa", "dodaj asystenta", "przejrzyjmy inbox", "podłącz GitHub"). In that
-case skip setup: detect the structure, figure out what they need (repair,
-upgrade vault-only → assistant, inbox review, storage upgrade, progressive
-fill — see `templates/assistant-spec.md`) and do just that. Never rebuild or
-overwrite an existing vault.
+---
+
+## If the user has to leave mid-wizard
+
+People get interrupted: a call, a child, "muszę lecieć", or they simply stop
+answering. Rules:
+
+- **Never leave a half-written file.** Finish the file you are writing, then
+  stop. Don't start the next one.
+- If a build is in progress, update `.mimir/state.md` to reflect what
+  actually exists on disk.
+- Say goodbye in one line that tells them how to come back, e.g.
+  PL: "Wszystko, co powstało, zostaje w `<folder>`. Kiedy wrócisz, otwórz
+  swoje AI w tym folderze i powiedz: **dokończ Mimira** — ruszymy od
+  miejsca, w którym skończyliśmy."
+  EN: "Everything built so far stays in `<folder>`. When you're back, open
+  your AI in this folder and say **finish Mimir** — we'll pick up where we
+  left off."
+- Before Step 5 nothing exists on disk yet. That's fine: say the interview
+  takes two minutes to redo and that's all they lose.
+
+## Coming back to an existing folder
+
+Whenever the target folder is not empty, or Mimir is invoked inside an
+existing vault ("dokończ Mimira", "finish Mimir", "coś nie działa", "dodaj
+asystenta", "podłącz GitHub"), **do not build**. First look for
+`.mimir/state.md` and pick the case:
+
+1. **No folder / empty folder** — normal wizard from Step 0. If the user
+   says they already did the interview once, one line: "tym razem szybciej"
+   / "faster this time" — then just run it again, no apology.
+2. **Marker says `status: in-progress`, `step_completed` ≤ 5** — the build
+   was interrupted. Show a compact tree of what exists, then offer:
+   `[1] Dokończ / Finish (recommended)  [2] Zacznij od nowa w nowym folderze / Start over in a new folder  [3] Zostaw jak jest / Leave it`.
+   "Finish" = read the profile from the marker (no second interview — ask
+   only what the marker lacks), rerun Step 5 with create-if-missing, then
+   continue from Step 6. "Start over" = a new folder; never delete the old one.
+3. **Marker says `in-progress`, `step_completed` 6–8** — the vault works,
+   only the upgrades are missing. Name what's left (first catch / Obsidian /
+   storage) and offer to do just those, with "pomiń, zakończ / skip, finish"
+   as an option that goes straight to Step 9.
+4. **Marker says `status: complete`** — this is maintenance, not setup:
+   repair, upgrade vault-only → assistant, storage upgrade, progressive fill
+   (see `templates/assistant-spec.md`). Do only what they asked. Never
+   rebuild.
+5. **No marker, folder not empty** — stop and ask (red line). If it looks
+   like a SIXPACK vault built by hand (the block folders + `moc/home.md`),
+   treat it as case 4 and offer to add a marker so Mimir recognizes it next
+   time. If it looks like unrelated files, propose a different folder.
+
+Any case that touches an existing folder keeps the two build rules from
+Step 5: create-if-missing, never overwrite.
+
+## The state marker — `.mimir/state.md`
+
+The single source of truth about what Mimir built in this folder. Written at
+the start of Step 5, updated after every step, `complete` at Step 9. Keep it
+short — YAML frontmatter plus one profile block; regenerate the whole file on
+each update:
+
+```markdown
+---
+mimir_version: 2
+status: in-progress        # in-progress | complete
+step_completed: 5          # last fully finished step (4 = build started)
+language: pl
+scope: vault+assistant     # vault | vault+assistant
+assistant_name: Ziutek     # or ~
+storage: local             # local | github | drive | ~ (undecided)
+created: 2026-09-07
+updated: 2026-09-07
+---
+# Profile summary (enough to resume without a second interview)
+- name: <name>
+- does: <one line>
+- sixpack: work 5 · public 2 · self 4 · people 3 · play 5 · library 3
+- subfolders: work/<a>, work/<b>, self/<c>, play/<d>
+- projects: <slug-1>, <slug-2>
+- open questions: see inbox/sixpack-do-uzupelnienia.md
+```
+
+Tell the user about it once, in one line, when it is created: "Mały plik
+`.mimir/state.md` pamięta, na czym stanęliśmy — dzięki niemu mogę wrócić
+i dokończyć, gdyby coś nas przerwało." Never ask them to edit it.

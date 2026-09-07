@@ -136,6 +136,7 @@ skills/mimir/
 └── templates/         # vault structure spec + assistant layer spec
 AGENTS.md              # entry point for Codex & other agents
 CLAUDE.md              # entry point for Claude Code opened in this folder
+evals/                 # trigger evals (run-triggers.py) + manual dry-run scenarios
 ```
 
 ---

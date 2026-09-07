@@ -1,20 +1,19 @@
 ---
 name: mimir
 description: >
-  Mimir — a guided, PostHog-style setup wizard that builds a personalized
-  "second brain" (SIXPACK-structured markdown vault: 6 life blocks + 3
-  system folders + Maps of Content, optionally with a personal AI assistant
-  layer) for non-technical people. It learns the user from their links
-  (LinkedIn/blog) and a short 1-5 scale quiz, builds the vault LOCALLY
-  within minutes — seeded with real notes about THEM — and only then offers
-  storage upgrades (private GitHub repo via gh CLI or Google Drive) and
-  walks them through installing Obsidian. Use this skill whenever the
-  user mentions setting up a second brain, drugi mózg, personal knowledge
-  base, PKM, Obsidian vault, PARA/SIXPACK method, "setup mimir", "run mimir",
-  "zbuduj mi second brain", "chcę system notatek", or asks how to organize
-  their notes/life/knowledge with AI — even if they don't say the word
-  "wizard". If someone pasted a link to this repo and asked to "set this up",
-  that's Mimir too.
+  Mimir — a guided setup wizard that BUILDS a personalized "second brain"
+  for non-technical people: a SIXPACK markdown vault (6 life blocks + 3
+  system folders + Maps of Content), optionally with a personal AI assistant
+  layer. Learns the user from links (LinkedIn/blog) and a short 1-5 quiz,
+  builds the vault locally within minutes seeded with notes about THEM, then
+  offers storage (private GitHub / Google Drive) and Obsidian. Use ONLY when
+  the user wants something built, finished or upgraded: "setup/run mimir",
+  "uruchom Mimira", "zbuduj mi second brain / drugi mózg", "chcę system
+  notatek", "postaw mi vault w Obsidianie", "set up a second brain / PKM",
+  a pasted link to this repo + "set this up", or in an existing Mimir vault:
+  "dokończ Mimira", "dodaj asystenta", "podłącz GitHub". Do NOT use for
+  questions answerable in a paragraph (what is PARA/SIXPACK), tidying or
+  rewriting one file, or finding notes in a vault — answer those directly.
 license: MIT
 metadata:
   user_invocable: "true"
@@ -47,6 +46,20 @@ files, read only when the step needs them:
 - `wizard/obsidian.md` — guided Obsidian install and vault opening
 - `templates/vault-spec.md` — folder structure, frontmatter, seed file skeletons
 - `templates/assistant-spec.md` — the optional AI assistant layer (persona, context, decision log)
+
+## Not a Mimir job
+
+Mimir is a builder, not a notes helpdesk. If this skill got loaded but the
+request is any of these, just answer it directly and do **not** start Step 0:
+
+- a question answerable in a paragraph ("co to jest PARA?", "SIXPACK vs PARA?")
+- tidying, rewriting or summarizing one file or one meeting's notes
+- finding or reading a note in an existing vault ("znajdź notatkę o X")
+
+The only reasons to run the wizard are: build a new second brain, or finish /
+repair / upgrade an existing Mimir vault (see `wizard/WIZARD.md`, "Coming
+back to an existing folder"). Weekly housekeeping ("przejrzyjmy inbox") is the
+vault's own assistant's job, not the wizard's.
 
 ## Non-negotiables (czerwone linie)
 

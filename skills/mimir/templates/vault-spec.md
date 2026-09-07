@@ -26,6 +26,7 @@ README in their language:
   library/           # co zbieram od innych? (links, books, tools, ideas)
 
   .obsidian/         # starter app config (below)
+  .mimir/state.md    # Mimir's own build/resume marker (see WIZARD.md) — keep it
 ```
 
 **Sizing by the quiz** (scale scores from the interview):

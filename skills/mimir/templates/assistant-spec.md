@@ -37,6 +37,9 @@ z context/me.md.
 ## Na starcie każdej rozmowy
 - Przeczytaj context/me.md i context/goals.md.
 - Nowe rzeczy od <UserName> trafiają do inbox/ z frontmatterem.
+- Jeśli .mimir/state.md ma `status: in-progress`, setup nie został
+  dokończony: zaproponuj w jednym zdaniu "dokończ Mimira" (wizard Mimir
+  wznowi od miejsca zapisanego w tym pliku). Nie naprawiaj tego sam.
 
 ## Struktura SIXPACK
 <the block map from vault-spec — THEIR actual blocks with their questions

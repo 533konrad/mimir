@@ -9,7 +9,10 @@ upgrade to GitHub/Drive, or keep it local — a completely valid end state.
 Suggest `~/Documents/second-brain` (localized Documents folder on their OS).
 Let them rename `second-brain` to anything. Create the folder; if it already
 exists and is non-empty, **stop and ask** — never build into someone's
-existing files.
+existing files. One exception: a folder that already contains
+`.mimir/state.md` is a Mimir vault (possibly half-built) — switch to
+"Coming back to an existing folder" in `WIZARD.md` and resume instead of
+asking for a new location.
 
 ## If they keep it local at Step 8 — say this once (and never nag again)
 
