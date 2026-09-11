@@ -36,6 +36,10 @@ README in their language:
 - score **3** → flat folder, no subfolders yet
 - score **1–2** → flat folder only if the user said yes; otherwise skip —
   a missing block can be added any time later
+- **`people/` never gets subfolders**, even at 4–5 (privacy — see
+  interview.md; the rule about initials goes into the README, not into a
+  folder tree). Its existence still follows the score: 3–5 → flat folder,
+  1–2 → only if the user said yes, otherwise skip like any other block
 - `inbox/`, `moc/`, `archive/` are always created
 
 Do NOT create an `attachments/` folder upfront — the `.obsidian` config
@@ -45,7 +49,10 @@ invisible noise, no need to explain it unless asked).
 
 Note filenames: short kebab-case in the user's language is fine
 (`wedding-planning.md`, `remont-lazienki.md`) — just keep them unique across
-the vault, because wikilinks resolve by filename.
+the vault, because wikilinks resolve by filename. That also means **exactly
+one `README.md`, at the vault root** — never a README inside a block or
+subfolder; a folder's purpose is explained in `moc/home.md`, not in a
+second README that would shadow the first one in every wikilink.
 
 ## Block boundaries (put these in the user's README too)
 
@@ -105,6 +112,14 @@ frameworks sit in `library/` — the MOC is the one place that sees all of it).
   both ends, always, at the same time. A one-way link is drift: the map
   silently rots. (Obsidian treats frontmatter wikilinks as real links, so
   graph and backlinks work.)
+- **What a MOC may wikilink:** notes only. Folders are not notes — write
+  them as inline code (`` `work/rekrutacje/` ``), never as `[[work]]`,
+  which Obsidian renders as a dangling link to a note that doesn't exist.
+- **Inbox seeds are not wikilinked from `home.md`.** `inbox/welcome.md` and
+  `inbox/sixpack-do-uzupelnienia.md` are transient (the user deletes the
+  first one as their first triage); mention them as paths in backticks.
+  Every note you DO wikilink from `home.md` gets `moc: "[[home]]"` in the
+  same write — check this before you show the tree.
 
 ## Seed notes (from the profile)
 

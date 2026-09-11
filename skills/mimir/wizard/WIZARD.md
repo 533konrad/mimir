@@ -32,8 +32,10 @@ everything as a downloadable zip, with instructions where to unpack it.
 
 ## Step 0/9 — Language
 
-First message: greet in both languages, ask which one to use. Suggest the
-language the user already wrote in. Everything user-facing from here on —
+First message: open with the progress line, bilingual because no language
+is chosen yet — `— Krok 0/9: Język / Step 0/9: Language —` — then greet in
+both languages and ask which one to use. Suggest the language the user
+already wrote in. Everything user-facing from here on —
 conversation, generated notes, vault README — is in the chosen language.
 **Top-level folder names always stay English** (`inbox`, `moc`, `archive`,
 `work`, `public`, `self`, `people`, `play`, `library`) — short, portable,
@@ -74,7 +76,13 @@ the quiz in Step 3 — all equally valid inputs.
 
 Six questions, one per life block, each answered on a 1–5 scale
 ("kompletnie nieważne" → "bardzo ważne" / "not important at all" → "very
-important"), in the spirit of a personality test. Then targeted follow-up
+important"), in the spirit of a personality test. **This is the one
+deliberate exception to one-question-at-a-time:** show all six as one
+compact numbered list and accept six numbers in a single reply
+(`5 2 4 5 3 4`), because a scale quiz reads as one thing and six separate
+turns feel like a form. With an interactive question tool, one question per
+prompt is fine too. Follow-ups after the quiz go back to one at a time.
+Then targeted follow-up
 questions ONLY for blocks scored 4–5, and ONLY about what the links didn't
 already reveal. Blocks scored 1–2 get no follow-ups and a slim (or no)
 folder.
@@ -130,7 +138,9 @@ Create, in this order:
    subfolders (from the interview — *their* subfolders, in their language)
    and seed notes; blocks scored 3 get a flat folder; blocks scored 1–2 get
    a flat folder only if the user wants it ("dodam, gdybyś kiedyś chciał" —
-   ask once, briefly). `inbox/`, `moc/`, `archive/` always exist.
+   ask once, briefly). `people/` never gets subfolders (privacy) but
+   follows the same score rule for whether it exists at all.
+   `inbox/`, `moc/`, `archive/` always exist.
 2. The `.obsidian/` starter config + the vault `README.md` in their language.
 3. `moc/home.md` — their personal map of the vault.
 4. `inbox/welcome.md` + the `inbox/sixpack-do-uzupelnienia.md` checklist —
@@ -181,8 +191,10 @@ The vault works. Now offer to protect it — one line each:
 2. **Google Drive** — move the vault into their synced Drive folder.
    Easiest if they already live in Google's world.
 3. **Zostaw lokalnie / keep it local** — completely valid. One gentle
-   warning about no-backup (once, never nag), plus: "wrócę i podłączę
-   GitHub albo Dysk w 5 minut, kiedy zechcesz."
+   warning about no-backup (once, never nag — and "once" includes the
+   finish screen: there the storage line just says "lokalnie / local",
+   without repeating the warning), plus: "wrócę i podłączę GitHub albo
+   Dysk w 5 minut, kiedy zechcesz."
 
 Then *(read exactly one file)*: `wizard/storage-github.md` or
 `wizard/storage-drive.md`, and follow it — both operate on the **existing**
