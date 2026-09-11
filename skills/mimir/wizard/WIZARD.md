@@ -109,8 +109,14 @@ the zip fallback when you can't write to disk).
 **Two build rules** (they make an interrupted build harmless):
 
 - **Create-if-missing, never overwrite.** Before writing any file, check
-  whether it exists; if it does, leave it. The build can be run twice on the
-  same folder and the second run only fills gaps.
+  whether it exists; if it does, leave it — byte for byte. That includes
+  `README.md`, `moc/home.md`, `.obsidian/*` and every note, even when you
+  think you could write a better one. The build can be run twice on the
+  same folder and the second run only fills gaps. The single exception is
+  `.mimir/state.md`, which you regenerate on every update. If an existing
+  `moc/home.md` needs new links, **append** lines to it (`>>`), never
+  rewrite the file (`cat >`, `Write`). If an existing README lacks the
+  SIXPACK explanation, append a section at the end.
 - **Fixed write order**, so that a folder interrupted halfway is always in a
   known state and the assistant persona exists only when the vault is
   complete: the marker below is written first, the assistant files last.
@@ -256,7 +262,25 @@ asystenta", "podłącz GitHub"), **do not build**. First look for
    time. If it looks like unrelated files, propose a different folder.
 
 Any case that touches an existing folder keeps the two build rules from
-Step 5: create-if-missing, never overwrite.
+Step 5: create-if-missing, never overwrite. Spelled out, because this is
+where it gets broken: **files that already exist stay byte-identical** —
+`README.md`, `moc/home.md`, every note. You only ADD files (`context/`,
+`decisions/`, `CLAUDE.md`, `AGENTS.md`, missing block folders, missing
+seeds) and you may APPEND lines to `moc/home.md` or `README.md`. Rewriting
+an existing file, however good the new version, is the red line.
+
+Two more rules for existing folders:
+
+- **Do only what was asked.** "dodaj asystenta" means: add the assistant
+  layer, nothing else. "podłącz GitHub" means: storage step only. If you
+  notice the vault is thin, missing blocks, or "unfinished", you may say so
+  in ONE sentence and mention `dokończ Mimira` — you do not start building.
+- **If the user asks you to delete or wipe the folder** ("skasuj wszystko,
+  zbuduj od zera"), you still never delete. The allowed move: rename the
+  existing folder to `<name>-backup-<date>` (or move its contents there),
+  tell the user in one sentence where their old files are and that they
+  can delete the backup themselves, then build fresh. That keeps momentum
+  without ever destroying data.
 
 ## The state marker — `.mimir/state.md`
 

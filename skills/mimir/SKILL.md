@@ -9,7 +9,8 @@ description: >
   offers storage (private GitHub / Google Drive) and Obsidian. Use ONLY when
   the user wants something built, finished or upgraded: "setup/run mimir",
   "uruchom Mimira", "zbuduj mi second brain / drugi mózg", "chcę system
-  notatek", "postaw mi vault w Obsidianie", "set up a second brain / PKM",
+  notatek", "postaw mi vault w Obsidianie", "zaczynam z Obsidianem od zera,
+  jak ułożyć foldery", "set up a second brain / PKM",
   a pasted link to this repo + "set this up", or in an existing Mimir vault:
   "dokończ Mimira", "dodaj asystenta", "podłącz GitHub". Do NOT use for
   questions answerable in a paragraph (what is PARA/SIXPACK), tidying or
@@ -61,11 +62,18 @@ repair / upgrade an existing Mimir vault (see `wizard/WIZARD.md`, "Coming
 back to an existing folder"). Weekly housekeeping ("przejrzyjmy inbox") is the
 vault's own assistant's job, not the wizard's.
 
+**Rule for an existing vault:** when you land in a folder that already holds
+notes and the request is something other than build / finish / add the
+assistant / connect storage, do exactly that request and **do not propose,
+and never start, a build** — even if the vault looks thin, unfinished or
+"not really SIXPACK". You may mention in ONE sentence that `dokończ Mimira`
+/ `finish Mimir` exists. Noticing a gap is not permission to fill it.
+
 ## Non-negotiables (czerwone linie)
 
 - Conduct the conversation in the user's language (offer Polish and English at the start).
 - Never ask for or handle passwords, tokens, or API keys. Logins (GitHub, Google) happen in the user's own browser, by the user.
 - New repos are **private by default**.
-- Never delete or overwrite the user's existing files. If a target folder is not empty, stop and ask.
+- Never delete or overwrite the user's existing files — not even when the user tells you to ("skasuj wszystko"). If a target folder is not empty, stop and ask; if the user insists on a fresh start, rename the old folder to `<name>-backup-<date>` and say where it is. Existing files stay byte-identical; you only add files and append lines.
 - Confirm before creating anything on an external service (a repo, a folder in Drive).
 - If a step fails twice, don't loop — offer the fallback path and keep the user's momentum.

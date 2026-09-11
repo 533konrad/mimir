@@ -23,6 +23,16 @@ Tell the user the plan based on what's missing. Typical worst case is two
 installs + one browser login — frame it as "trzy krótkie kroki, potem
 wszystko dzieje się samo".
 
+**Attempt budget — hard limit.** Keep a count of failed commands on this
+path (install, login, repo create). **The second failure ends the GitHub
+path**: no third try, no hunting for another binary, no diagnosing PATH,
+no reading logs. Say one plain sentence ("GitHub nie chce dziś współpracować
+— zostawiam vault lokalnie, podłączymy go w 5 minut innym razem"), leave
+the note described under Fallbacks, and go to Step 9. The user's vault
+already works; ten minutes of terminal archaeology is worth less than their
+momentum. If `gh` is not on PATH, that is failure #1 — you may try the
+package manager once, and that is the whole budget.
+
 ## Installing what's missing
 
 Prefer the path with the fewest decisions for the user. By OS:
@@ -41,9 +51,14 @@ command isn't found right after installing, that's the first thing to try.
 
 ## Login — the user does this, not you
 
-Run `gh auth login --web --git-protocol https` and tell the user what will
-happen **before** it happens: "W przeglądarce otworzy się GitHub i poprosi
-o kod, który zobaczysz w terminalu. Wpisz kod, kliknij Authorize."
+`gh auth login --web` needs an interactive terminal (it prints a code and
+waits). **Only run it yourself if your shell is interactive** (a real
+terminal the user is looking at). In a headless or non-interactive session
+it hangs — don't start it; instead tell the user to open their own terminal
+and run `gh auth login --web`, and wait for them to say it's done. Either
+way, tell the user what will happen **before** it happens: "W przeglądarce
+otworzy się GitHub i poprosi o kod, który zobaczysz w terminalu. Wpisz kod,
+kliknij Authorize."
 
 - **Never** ask for their password, token, or 2FA code. If a prompt asks for
   anything secret, the user types it themselves in their own browser.
