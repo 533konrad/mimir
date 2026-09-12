@@ -44,10 +44,20 @@ Potrzebujesz AI, które umie działać na Twoim komputerze — np. **Claude**
 **Sposób 1 — jedna komenda (masz Claude Code, Codex lub podobnego agenta):**
 
 ```
+claude plugin marketplace add 533konrad/mimir
+claude plugin install mimir@533konrad
+```
+
+Potem w swoim AI napisz: **„Uruchom Mimira"** i odpowiadaj na pytania. Tyle.
+Aktualizacje przychodzą same, razem z repo.
+
+Nie masz Claude Code? Ta sama rzecz przez instalator, na Codexa i resztę agentów:
+
+```
 npx skills add 533konrad/mimir
 ```
 
-Potem w swoim AI napisz: **„Uruchom Mimira"** — i odpowiadaj na pytania. Tyle.
+Wybierz jedną z dwóch dróg. Obie naraz = Mimir zainstalowany dwa razy.
 
 **Sposób 2 — magiczny prompt (dowolne AI z dostępem do internetu):**
 
@@ -102,10 +112,20 @@ app or Claude Code) or **Codex**.
 **Option 1 — one command (you have Claude Code, Codex or a similar agent):**
 
 ```
+claude plugin marketplace add 533konrad/mimir
+claude plugin install mimir@533konrad
+```
+
+Then tell your AI: **"Run Mimir"** and answer the questions. That's it.
+Updates arrive automatically, together with the repo.
+
+Not on Claude Code? The same thing via the installer, for Codex and other agents:
+
+```
 npx skills add 533konrad/mimir
 ```
 
-Then tell your AI: **"Run Mimir"** — and answer the questions. That's it.
+Pick one route. Both at once leaves you with Mimir installed twice.
 
 **Option 2 — magic prompt (any AI with internet access):**
 

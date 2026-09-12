@@ -1,0 +1,22 @@
+{
+  "name": "533konrad",
+  "owner": {
+    "name": "Konrad Gladkowski",
+    "url": "https://konradgladkowski.com"
+  },
+  "description": "Mimir, the second brain wizard, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "mimir",
+      "source": "./",
+      "description": "Guided wizard that builds a personal second brain (SIXPACK markdown vault plus an optional AI assistant layer) in about 15 minutes.",
+      "category": "productivity",
+      "keywords": [
+        "second-brain",
+        "pkm",
+        "obsidian",
+        "notes"
+      ]
+    }
+  ]
+}

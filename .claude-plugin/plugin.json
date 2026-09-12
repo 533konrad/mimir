@@ -1,0 +1,24 @@
+{
+  "name": "mimir",
+  "version": "2.0.0",
+  "description": "Mimir builds you a personal second brain: a SIXPACK markdown vault, optionally with an AI assistant layer, from a 15-minute guided interview. Built for non-technical people. PL + EN.",
+  "author": {
+    "name": "Konrad Gladkowski",
+    "url": "https://konradgladkowski.com"
+  },
+  "homepage": "https://konradgladkowski.com/mimir",
+  "repository": "https://github.com/533konrad/mimir",
+  "license": "MIT",
+  "keywords": [
+    "second-brain",
+    "pkm",
+    "obsidian",
+    "notes",
+    "markdown",
+    "sixpack",
+    "productivity"
+  ],
+  "skills": [
+    "./skills/mimir"
+  ]
+}

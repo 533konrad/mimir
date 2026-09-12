@@ -1,0 +1,3 @@
+interface:
+  display_name: "Mimir"
+  short_description: "Build a personal second brain (SIXPACK vault + AI assistant)"
