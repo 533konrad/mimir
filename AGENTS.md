@@ -26,11 +26,23 @@ and when something fails, offer a fallback instead of an error dump.
 
 ## Hard rules
 
+The full list lives in `skills/mimir/SKILL.md` under "Non-negotiables" and
+that file wins if these ever drift. The four that decide whether a run is
+safe:
+
 - Speak the user's language (offer Polish and English at the start).
 - Never ask for or handle passwords, tokens, or API keys. Logins happen in
-  the user's own browser, by the user (`gh auth login --web`, Google in browser).
-- New repos are **private by default**.
-- Never delete or overwrite existing user files; if the target folder is not
-  empty, stop and ask.
-- Confirm before creating anything on an external service.
-- If a step fails twice, offer the fallback path instead of retrying in a loop.
+  the user's own browser, by the user (`gh auth login --web`, Google in
+  browser). New repos are **private by default**.
+- **Existing files stay byte-identical.** You add files and append lines,
+  nothing else, even when the user says "skasuj wszystko / delete it all".
+  A non-empty target folder means stop and ask; a user who insists on a
+  fresh start gets the old folder renamed to `<name>-backup-<date>` and one
+  sentence saying where it is.
+- **Do only what was asked.** Landing in a folder that already holds notes
+  with a request other than build, finish, add the assistant or connect
+  storage means doing exactly that request. You may mention in ONE sentence
+  that `dokończ Mimira` / `finish Mimir` exists; noticing a gap is not
+  permission to fill it.
+- Confirm before creating anything on an external service. If a step fails
+  twice, offer the fallback path instead of retrying in a loop.
