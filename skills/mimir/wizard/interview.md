@@ -9,6 +9,16 @@ Rules of engagement:
 
 - One thing at a time, conversational, in the user's language. React to
   answers like a curious human, not a form.
+- **Every question carries your recommended answer.** Not a menu of equals:
+  say which one you would pick and why, in half a sentence, so the user can
+  accept it in a word and still feel they chose. A person who does not know
+  what a "block" is cannot rank six of them from a blank prompt; they can
+  very easily say "yes" or "no, more like this".
+- **Facts are your job, decisions are theirs.** Anything you can look up
+  (their name from the link they pasted, whether `git` is installed, what OS
+  they are on, whether a folder exists) you look up. You ask only what lives
+  in their head. A question whose answer was already on the page they gave
+  you reads as not having listened.
 - Everything is skippable — "nie wiem / skip" is a valid answer. A thin
   profile still works; an interrogation kills the mood.
 - Total budget: **5–7 minutes**. The links do the heavy lifting so the
@@ -72,14 +82,19 @@ important). Suggested phrasings (adapt freely):
 Ask follow-ups ONLY for blocks scored **4–5**, and ONLY about what Phase A
 didn't already reveal. One or two questions per hot block, no more:
 
-| Block (4–5) | Ask | Becomes |
-|---|---|---|
-| work | "Z czego konkretnie żyjesz? Firmy, produkty, klienci?" + "Jakie 1–3 rzeczy z deadlinem teraz prowadzisz?" | subfolders per venture + seed note per project |
-| public | "Gdzie publikujesz albo chcesz publikować? Podcast, LinkedIn, blog, scena?" | subfolders per channel |
-| self | "Co ćwiczysz albo rozwijasz? Filozofia, cele, zdrowie, języki?" + "Co chcesz, żeby za rok było inne?" | subfolders + goals note |
-| people | "Chcesz notatki o konkretnych osobach? Jeśli tak: pełne imiona czy inicjały?" (privacy: recommend initials if the vault will ever sync anywhere) | flat folder + privacy rule in README |
-| play | "Jakie pasje? Wymień — każda większa dostanie swój folder." | subfolders per passion |
-| library | "Co najczęściej zbierasz? Linki, książki, przepisy, cytaty, pomysły?" | subfolders per collection type |
+Each row below carries the recommendation to lead with. Where Phase A already
+answered it, skip the question and **state what you found** instead, asking
+only for a correction ("z LinkedIna widzę podcast i bloga, więc zakładam
+`public/podcast` i `public/blog` — dorzucić coś jeszcze?").
+
+| Block (4–5) | Ask | Recommend | Becomes |
+|---|---|---|---|
+| work | "Z czego konkretnie żyjesz? Firmy, produkty, klienci?" + "Jakie 1–3 rzeczy z deadlinem teraz prowadzisz?" | the ventures you already saw in their links, as subfolder names; one seed note per deadline they name | subfolders per venture + seed note per project |
+| public | "Gdzie publikujesz albo chcesz publikować? Podcast, LinkedIn, blog, scena?" | one subfolder per channel that actually exists today, not per channel they aspire to | subfolders per channel |
+| self | "Co ćwiczysz albo rozwijasz? Filozofia, cele, zdrowie, języki?" + "Co chcesz, żeby za rok było inne?" | `cele` plus whatever they named first, and the year answer becomes the goals note | subfolders + goals note |
+| people | "Chcesz notatki o konkretnych osobach? Jeśli tak: pełne imiona czy inicjały?" | **initials, recommended out loud**: vaults get synced and synced things leak. `people/` stays flat whatever the score | flat folder + privacy rule in README |
+| play | "Jakie pasje? Wymień — każda większa dostanie swój folder." | a folder only for the ones they do this year; the rest can be added in a second | subfolders per passion |
+| library | "Co najczęściej zbierasz? Linki, książki, przepisy, cytaty, pomysły?" | `ksiazki` and `artykuly` unless they say otherwise, because almost everyone collects both | subfolders per collection type |
 
 Blocks scored **3**: flat folder, no follow-ups. Blocks scored **1–2**: ask
 once, briefly, whether to create an empty flat folder or skip it entirely
@@ -100,6 +115,9 @@ seed notes — keep seeds neutral.
 
 ## Profile (the output)
 
+The output of this interview is `profile.json`, the input to
+`scripts/build_vault.py` (Step 5). Run
+`python3 scripts/build_vault.py --print-schema` for the exact field list.
 Assemble internally:
 
 - name, what they do, tone preference (if assistant chosen)

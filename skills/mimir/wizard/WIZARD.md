@@ -110,51 +110,45 @@ Sancho Tokenez.)
 ## Step 5/9 — Build, right now, locally *(read `templates/vault-spec.md`; if assistant chosen, also `templates/assistant-spec.md`; location rules in `wizard/storage-local.md`)*
 
 Announce: "Buduję twój second brain..." / "Building your second brain...".
-No accounts, no installs — a plain local folder (default
-`~/Documents/second-brain`, see `storage-local.md` for location rules and
-the zip fallback when you can't write to disk).
+No accounts, no installs, a plain local folder (default
+`~/Documents/second-brain`, see `storage-local.md` for location rules).
 
-**Two build rules** (they make an interrupted build harmless):
+**A script builds the tree; you supply what only a conversation can.** Run
+`python3 scripts/build_vault.py --print-schema` once to see the exact shape,
+then write `profile.json` into the vault's parent folder (or a temp folder)
+and run:
 
-- **Create-if-missing, never overwrite.** Before writing any file, check
-  whether it exists; if it does, leave it — byte for byte. That includes
-  `README.md`, `moc/home.md`, `.obsidian/*` and every note, even when you
-  think you could write a better one. The build can be run twice on the
-  same folder and the second run only fills gaps. The single exception is
-  `.mimir/state.md`, which you regenerate on every update. If an existing
-  `moc/home.md` needs new links, **append** lines to it (`>>`), never
-  rewrite the file (`cat >`, `Write`). If an existing README lacks the
-  SIXPACK explanation, append a section at the end.
-- **Fixed write order**, so that a folder interrupted halfway is always in a
-  known state and the assistant persona exists only when the vault is
-  complete: the marker below is written first, the assistant files last.
+```sh
+python3 <skill-dir>/scripts/build_vault.py profile.json --dry-run   # show the tree first
+python3 <skill-dir>/scripts/build_vault.py profile.json             # build it
+```
 
-Create, in this order:
+The script owns the structure: folders sized by the quiz, frontmatter,
+`.obsidian/` config, `README.md`, `moc/home.md` with both ends of every link,
+the inbox seeds, the assistant layer, the `.mimir/state.md` marker,
+create-if-missing on every file. You own the profile: the name, the language,
+the subfolders in the user's words, and the **body of every seed note**,
+which is the half that has to sound like them and is the reason the build
+feels like a wow rather than a template.
 
-0. **State marker** `.mimir/state.md` (see "The state marker" at the end
-   of this file) with `status: in-progress`, `step_completed: 4` and the
-   profile summary. Dotfolder — invisible in Obsidian, tiny, safe to sync.
-1. The SIXPACK structure **sized by the quiz**: blocks scored 4–5 get
-   subfolders (from the interview — *their* subfolders, in their language)
-   and seed notes; blocks scored 3 get a flat folder; blocks scored 1–2 get
-   a flat folder only if the user wants it ("dodam, gdybyś kiedyś chciał" —
-   ask once, briefly). `people/` never gets subfolders (privacy) but
-   follows the same score rule for whether it exists at all.
-   `inbox/`, `moc/`, `archive/` always exist.
-2. The `.obsidian/` starter config + the vault `README.md` in their language.
-3. `moc/home.md` — their personal map of the vault.
-4. `inbox/welcome.md` + the `inbox/sixpack-do-uzupelnienia.md` checklist —
-   open questions the interview skipped, fuel for progressive fill.
-5. **Seed notes from the links + interview** — this is the second wow. Real
-   notes with real frontmatter about their projects, their goals, their
-   interests — content they didn't type, extracted from Step 2.
-6. If assistant chosen, **last**: `context/me.md`, `context/goals.md`,
-   `decisions/log.md` with its first real entry, then `CLAUDE.md` +
-   `AGENTS.md` (the persona).
-7. Update the marker: `step_completed: 5`.
+Two notes on using it:
 
-Show a compact tree of what was created, then **pause and invite them to
-open one of the seed notes**. Let them react.
+- **The script refuses a bad profile rather than guessing.** A non-kebab
+  filename, a duplicate note name, a note in a block the quiz did not create,
+  a score outside 1-5: it prints one line saying what to fix. Fix the profile
+  and run again, and never work around the message by writing files by hand.
+- **Re-running is safe and expected.** Files that exist are left byte-identical,
+  so a second run fills gaps only. That is how "dokończ Mimira" works.
+
+**Fallback when you cannot run the script** (no shell, no Python): build the
+same tree by hand, straight from `templates/vault-spec.md`, keeping the two
+rules the script would have enforced for you: create-if-missing, and both
+ends of every map link written in the same step. Say nothing about this to
+the user; from their side the result is identical.
+
+Then show the compact tree the script printed, and **pause to invite them to
+open one of the seed notes**. Let them react. This is the second wow and it
+lands on the content, not on the folders.
 
 ## Step 6/9 — First catch (the inbox demo)
 

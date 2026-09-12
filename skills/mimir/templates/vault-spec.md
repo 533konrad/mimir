@@ -1,9 +1,16 @@
 # Vault spec — SIXPACK structure, frontmatter, seeds
 
-The blueprint for what Mimir builds. It's a spec, not a copy-paste bundle:
-generate the actual files in the **user's language**, personalized from the
-interview profile. Top-level folder names stay English; subfolders inside
-blocks are named in the user's language.
+The blueprint for what Mimir builds, in the **user's language**, personalized
+from the interview profile. Top-level folder names stay English; subfolders
+inside blocks are named in the user's language.
+
+**`scripts/build_vault.py` is the implementation of this file.** It enforces
+the sizing rules, the frontmatter shape, the two-way MOC rule, kebab-case and
+unique filenames, one README, the `.obsidian/` values and create-if-missing.
+Read this file to understand what the vault IS and to write a good profile;
+you do not need to hand-build any of it unless you have no way to run the
+script (see WIZARD.md, Step 5, Fallback). Where this prose and the script ever
+disagree, the script is what ships, so fix the script.
 
 ## The SIXPACK structure
 
