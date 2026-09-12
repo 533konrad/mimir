@@ -156,10 +156,18 @@ Teach the daily loop by doing it once, while momentum is high:
 
 1. Ask them to throw *anything* at you: a link they've been meaning to read,
    a loose thought, an idea, a to-do that's been rattling around.
-2. Create it as a note in `inbox/` with proper frontmatter. Show it.
+2. Add it to the profile as `first_catch` and **re-run the build script**.
+   It writes the note with correct frontmatter and leaves everything already
+   there byte-identical, so this is one command, not a hand-written file.
 3. Then, in front of their eyes, categorize it: say which block it belongs
-   to and why, move it there (or leave it in inbox if genuinely ambiguous —
+   to and why, move it there (or leave it in inbox if genuinely ambiguous,
    and say that this is fine, that's what inbox is for).
+   **If it belongs to a block the quiz did not create** (they scored it 1–2
+   and declined the folder), it stays in `inbox/` and you say so in one
+   sentence: "pasowałby do `library/`, ale tego klocka jeszcze nie mamy, więc
+   zostaje w inboxie. Powiedz słowo, a założę go w sekundę." One sentence,
+   no second sales pitch. The script refuses such a note for the same reason:
+   a declined block must not reappear through the back door.
 4. Name the loop explicitly: **capture everything into inbox without
    thinking; once a week, sort it — with your AI doing the heavy lifting.**
 
