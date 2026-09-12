@@ -143,8 +143,8 @@ evals/                 # trigger evals (run-triggers.py) + manual dry-run scenar
 
 [![Install with skills CLI](https://skills.sh/b/533konrad/mimir)](https://skills.sh/533konrad/mimir)
 
-Mimir zbudował / built by **[Konrad Gładkowski](https://konradgladkowski.com)** ·
+Mimir zbudował / built by **[Konrad Gładkowski](https://konradgladkowski.com/?utm_source=github&utm_medium=readme&utm_campaign=mimir)** ·
 inspirowane systemem, na którym pracuje na co dzień / inspired by the system
 he runs his own life on. Strona / Homepage:
-[konradgladkowski.com/mimir](https://konradgladkowski.com/mimir).
+[konradgladkowski.com/mimir](https://konradgladkowski.com/mimir?utm_source=github&utm_medium=readme&utm_campaign=mimir).
 Licencja / License: MIT.
