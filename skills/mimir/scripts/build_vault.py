@@ -19,6 +19,7 @@ Two guarantees, both load-bearing:
 
 Usage:
     python3 build_vault.py profile.json                 # build
+    python3 build_vault.py profile.json --open          # build, then show the folder
     python3 build_vault.py profile.json --dry-run       # print the tree, touch nothing
     python3 build_vault.py profile.json --print-schema  # what the profile must contain
 
@@ -29,7 +30,9 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import json
+import os
 import re
+import subprocess
 import sys
 import unicodedata
 from pathlib import Path
@@ -762,10 +765,30 @@ def build(profile: dict, dry_run: bool = False) -> Vault:
     return v
 
 
+def reveal(path: Path) -> None:
+    """Open the finished vault in the system file browser.
+
+    The build is the moment the promise pays off, and a path printed in a
+    terminal is not the same experience as a window full of their own notes.
+    Honoured unless MIMIR_NO_OPEN is set, which is how test harnesses keep
+    a hundred runs from opening a hundred windows."""
+    if os.environ.get("MIMIR_NO_OPEN"):
+        return
+    cmds = {"darwin": ["open"], "win32": ["explorer"]}
+    cmd = cmds.get(sys.platform, ["xdg-open"])
+    try:
+        subprocess.run(cmd + [str(path)], check=False,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10)
+    except Exception:
+        pass  # a file browser that will not open is not a build failure
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Build a SIXPACK vault from profile.json")
     ap.add_argument("profile", nargs="?", help="path to profile.json")
     ap.add_argument("--dry-run", action="store_true", help="print what would be written, touch nothing")
+    ap.add_argument("--open", action="store_true", dest="open_folder",
+                    help="show the finished vault in the file browser (set MIMIR_NO_OPEN to suppress)")
     ap.add_argument("--print-schema", action="store_true", help="print the profile schema and exit")
     args = ap.parse_args()
 
@@ -781,6 +804,9 @@ def main() -> int:
     except BuildError as e:
         print(f"error: {e}", file=sys.stderr)
         return 1
+
+    if args.open_folder and not args.dry_run:
+        reveal(Path(profile["vault_path"]).expanduser())
 
     head = "would create" if args.dry_run else "created"
     print(f"{head}: {len(v.created)}")

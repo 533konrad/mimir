@@ -60,11 +60,25 @@ good inputs, offer them in this order:
 
 ## Phase B — the Sixpack quiz
 
-Frame it in one sentence: "Sześć krótkich pytań w stylu testu osobowości —
-odpowiedzi ustawią kształt Twojego second brain." Use the interactive
+Frame it in one sentence: "Sześć krótkich pytań w stylu testu osobowości,
+odpowiedzi ustawią kształt Twojego drugiego mózgu." Use the interactive
 question tool if available; otherwise numbered options in chat.
 
-Six questions, one per block, answered on a 1–5 scale
+**Explain the scale before the first question, once, in terms of what it
+buys.** "1 do 5" on its own measures nothing a first-timer can feel:
+
+> PL: "Przy każdym obszarze powiedz, jak dużą częścią Twojego życia jest
+> dzisiaj: 1 znaczy «w ogóle mnie to nie dotyczy», 5 znaczy «to jest u mnie
+> codziennie». Od tego zależy, ile miejsca dostanie w Twoim drugim mózgu:
+> piątka dostanie podfoldery i gotowe notatki, jedynka nie powstanie wcale."
+
+**Then ask them one at a time**, waiting for each answer before the next.
+Six numbers in one message is fast for someone who already knows SIXPACK and
+meaningless for someone meeting it for the first time. React to each answer
+in a few words, so it reads as a conversation rather than a form: a 5 earns
+"to będzie serce Twojego vaulta", a 1 earns "jasne, pomijamy".
+
+Six questions, one per area, answered on a 1–5 scale
 (1 = kompletnie nieważne / not important at all, 5 = bardzo ważne / very
 important). Suggested phrasings (adapt freely):
 

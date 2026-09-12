@@ -30,13 +30,21 @@ everything as a downloadable zip, with instructions where to unpack it.
 
 ---
 
-## Step 0/9 — Language
+## Step 0/9 — Language (detected, not asked)
 
-First message: open with the progress line, bilingual because no language
-is chosen yet — `— Krok 0/9: Język / Step 0/9: Language —` — then greet in
-both languages and ask which one to use. Suggest the language the user
-already wrote in. Everything user-facing from here on —
-conversation, generated notes, vault README — is in the chosen language.
+**Do not ask which language to use.** Take it from what the user already
+wrote: they invoked you in some language, and that is the answer. A wizard
+whose first act is a question the user already answered by typing reads as
+not having listened. Where the invocation is genuinely ambiguous (a bare
+`/mimir`, an English command word in an otherwise Polish session), fall back
+to the language of the surrounding session, then to the system locale.
+
+Say which one you picked in half a sentence, with the way out attached:
+"Lecimy po polsku (powiedz słowo, jeśli wolisz English)." Then move on. No
+menu, no progress line of its own: this step costs one clause, not a turn.
+
+Everything user-facing from here on, the conversation, the generated notes
+and the vault README, is in that language.
 **Top-level folder names always stay English** (`inbox`, `moc`, `archive`,
 `work`, `public`, `self`, `people`, `play`, `library`) — short, portable,
 tool-friendly. Subfolders inside the blocks are named in the user's language.
@@ -45,47 +53,79 @@ tool-friendly. Subfolders inside the blocks are named in the user's language.
 
 One compact message, in the spirit of an installer splash:
 
-- What Mimir builds: a "second brain" — one folder of plain-text notes,
-  organized with the **SIXPACK** structure (six blocks of life + three
-  system folders), so both the user and their AI can find anything;
-  optionally with a personal AI assistant that knows them.
-- The promise, stated plainly: **in about 10 minutes you'll be looking at
-  your own second brain, already filled with notes about you.**
-- Privacy: everything is created on their machine / their accounts. Mimir
-  never asks for passwords; logins happen in their own browser.
+Use these lines close to verbatim. They were written against a real run and
+each edit to them has been earned; improvising here makes the screen longer
+and vaguer, never better.
+
+- What Mimir builds, one folder of plain text notes:
+  PL: "SIXPACK: sześć obszarów (o Tobie, praca, publiczna komunikacja,
+  ludzie, zabawa, biblioteka) + trzy foldery systemowe (inbox, moc,
+  archive)."
+  EN: "SIXPACK: six areas (about you, work, public communication, people,
+  play, library) + three system folders (inbox, moc, archive)."
+  Optionally with a personal AI assistant that knows them.
+- The promise:
+  PL: "za 10 minut stworzymy Twój własny drugi mózg, wypełniony notatkami
+  o Tobie."
+  EN: "in 10 minutes we'll build your own second brain, filled with notes
+  about you."
+- Privacy: everything is created on their machine and their accounts. Mimir
+  never asks for passwords.
+  PL: "robisz to w swojej przeglądarce." EN: "you do that in your own browser."
 
 End with: `[1] Zaczynamy / Let's go  [2] Najpierw powiedz mi więcej / Tell me more`.
 "Tell me more" gets a short explanation of what a second brain is, why plain
 markdown files beat closed apps (portable, future-proof, AI-readable), and
-the six SIXPACK questions — then back to the menu.
+PL: "i jakie jest test sześć obszarów SIXPACK" / EN: "and what the six
+SIXPACK areas are" — then back to the menu.
 
 ## Step 2/9 — Show me yourself *(read `wizard/interview.md`, Phase A)*
 
-Ask for links: LinkedIn profile, personal blog/website, company page —
-whatever exists. Fully skippable. If you can fetch web pages, fetch them and
-extract a draft profile (name, what they do, projects, visible interests).
-Present it back: "to już o Tobie wiem — zgadza się?" / "here's what I
-already know about you — did I get it right?"
+Ask for links: LinkedIn profile, personal blog or website, company page,
+whatever exists. Say why in the same breath:
+PL: "..., zanim zacznę dopytywać o szczegóły." / EN: "..., before I start
+asking you about details."
 
-**This is the first wow** — the user sees a machine understanding them from
-one pasted link, minutes in. If there are no links or no fetch capability,
-the user can paste a bio, dictate a messy braindump by voice, or just answer
-the quiz in Step 3 — all equally valid inputs.
+Fully skippable. If you can fetch web pages, fetch them and extract a draft
+profile (name, what they do, projects, visible interests). Present it back:
+"to już o Tobie wiem — zgadza się?" / "here's what I already know about you,
+did I get it right?"
+
+**This is the first wow**: the user sees a machine understanding them from
+one pasted link, minutes in.
+
+When there are no links, no fetch capability, or they would rather not
+share, offer the other inputs under one word.
+PL: "Alternatywnie:" / EN: "Alternatively:" — then a bio pasted from
+anywhere, a messy braindump dictated by voice, or nothing at all, in which
+case PL: "przejdziemy dalej." / EN: "we'll move on." All three are equally
+good inputs; none of them is a consolation prize, so do not frame them as
+one.
 
 ## Step 3/9 — The Sixpack quiz *(read `wizard/interview.md`, Phase B)*
 
-Six questions, one per life block, each answered on a 1–5 scale
-("kompletnie nieważne" → "bardzo ważne" / "not important at all" → "very
-important"), in the spirit of a personality test. **This is the one
-deliberate exception to one-question-at-a-time:** show all six as one
-compact numbered list and accept six numbers in a single reply
-(`5 2 4 5 3 4`), because a scale quiz reads as one thing and six separate
-turns feel like a form. With an interactive question tool, one question per
-prompt is fine too. Follow-ups after the quiz go back to one at a time.
-Then targeted follow-up
-questions ONLY for blocks scored 4–5, and ONLY about what the links didn't
-already reveal. Blocks scored 1–2 get no follow-ups and a slim (or no)
-folder.
+Six questions, one per life area, each answered on a 1–5 scale, in the
+spirit of a personality test.
+
+**One question at a time, each confirmed before the next.** Six numbers in
+one reply is fast for someone who already knows the method and meaningless
+for someone meeting it for the first time, which is everyone this wizard is
+built for. Ask, wait, react in a few words, then ask the next.
+
+**Explain the scale once, before question one**, because "1 to 5" alone says
+nothing about what is being measured:
+PL: "Przy każdym obszarze powiedz, jak dużą częścią Twojego życia jest
+dzisiaj: 1 znaczy «w ogóle mnie to nie dotyczy», 5 znaczy «to jest u mnie
+codziennie». Od tego zależy, ile miejsca dostanie w Twoim drugim mózgu:
+piątka dostanie podfoldery i gotowe notatki, jedynka nie powstanie wcale."
+EN: the same in English.
+
+That last sentence is the one doing the work: it turns an abstract rating
+into a visible consequence, so the user knows what they are buying with a 5.
+
+Then targeted follow-up questions ONLY for areas scored 4–5, and ONLY about
+what the links didn't already reveal. Areas scored 1–2 get no follow-ups and
+a slim (or no) folder.
 
 Output: the **profile** — everything from Phase A + scale scores + answers +
 the list of unanswered questions (used later for progressive fill).
@@ -120,8 +160,13 @@ and run:
 
 ```sh
 python3 <skill-dir>/scripts/build_vault.py profile.json --dry-run   # show the tree first
-python3 <skill-dir>/scripts/build_vault.py profile.json             # build it
+python3 <skill-dir>/scripts/build_vault.py profile.json --open      # build it, and show it
 ```
+
+`--open` pops the finished folder up in Finder, Explorer or the Linux file
+manager. Pass it on the build in Step 5, so the user watches their own notes
+appear rather than reading a path. Leave it off on the Step 6 re-run: one
+window is a reveal, two is a nuisance.
 
 The script owns the structure: folders sized by the quiz, frontmatter,
 `.obsidian/` config, `README.md`, `moc/home.md` with both ends of every link,
@@ -150,12 +195,23 @@ Then show the compact tree the script printed, and **pause to invite them to
 open one of the seed notes**. Let them react. This is the second wow and it
 lands on the content, not on the folders.
 
-## Step 6/9 — First catch (the inbox demo)
+## Step 6/9 — The daily loop, done once (the inbox demo)
 
-Teach the daily loop by doing it once, while momentum is high:
+Teach the daily loop by doing it once, while momentum is high.
 
-1. Ask them to throw *anything* at you: a link they've been meaning to read,
-   a loose thought, an idea, a to-do that's been rattling around.
+**Never call this step "połów" or "łap"** in Polish. Nobody says that about
+notes, and a made-up word at the exact moment you are teaching a habit costs
+you the habit. Name the thing by what it does.
+
+1. Ask them to throw anything at you, in these words:
+   PL: "Nauczymy się codziennej pętli, robiąc ją raz. Rzuć we mnie
+   czymkolwiek — linkiem, który od tygodnia chcesz przeczytać, luźną myślą,
+   pomysłem na odcinek, zadaniem, które kołacze się po głowie. Cokolwiek —
+   ja to zapiszę i na Twoich oczach pokażę, gdzie to ląduje i dlaczego."
+   EN: "Let's learn the daily loop by doing it once. Throw anything at me:
+   a link you've been meaning to read for a week, a loose thought, an idea
+   for an episode, a task rattling around your head. Anything. I'll write it
+   down and show you, right here, where it lands and why."
 2. Add it to the profile as `first_catch` and **re-run the build script**.
    It writes the note with correct frontmatter and leaves everything already
    there byte-identical, so this is one command, not a hand-written file.
