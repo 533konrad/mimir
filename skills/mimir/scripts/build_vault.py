@@ -22,6 +22,7 @@ Usage:
     python3 build_vault.py profile.json --open          # build, then show the folder
     python3 build_vault.py profile.json --dry-run       # print the tree, touch nothing
     python3 build_vault.py profile.json --print-schema  # what the profile must contain
+    python3 build_vault.py --pack VAULT out.zip         # zip a vault for download (hosted sandbox)
 
 Stdlib only, Python 3.8+. Writes nothing outside the vault path in the profile.
 """
@@ -35,6 +36,7 @@ import re
 import subprocess
 import sys
 import unicodedata
+import zipfile
 from pathlib import Path
 
 SYSTEM_FOLDERS = ["inbox", "moc", "archive"]
@@ -847,6 +849,32 @@ def build(profile: dict, dry_run: bool = False) -> Vault:
     return v
 
 
+def write_zip(root: Path, out: Path) -> Path:
+    """Snapshot a vault as a zip with the vault folder at its root.
+
+    For hosted sandboxes (a skill uploaded to Claude.ai and similar), where
+    the user cannot reach the folder and downloads this file instead. The zip
+    is Mimir's own artifact, rewritten on every call; nothing inside the vault
+    is touched, and a zip path inside the vault is refused so the archive can
+    never end up packing itself."""
+    root = root.expanduser()
+    out = out.expanduser()
+    if not root.is_dir():
+        raise BuildError(f"no vault folder at {root}")
+    try:
+        out.resolve().relative_to(root.resolve())
+    except ValueError:
+        pass  # outside the vault, as it should be
+    else:
+        raise BuildError(f"the zip must be written outside the vault, not into {root}")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as bundle:
+        for p in sorted(root.rglob("*")):
+            if p.is_file() and p.name != ".DS_Store":
+                bundle.write(p, (Path(root.name) / p.relative_to(root)).as_posix())
+    return out
+
+
 def reveal(path: Path) -> None:
     """Open the finished vault in the system file browser.
 
@@ -872,10 +900,20 @@ def main() -> int:
     ap.add_argument("--open", action="store_true", dest="open_folder",
                     help="show the finished vault in the file browser (set MIMIR_NO_OPEN to suppress)")
     ap.add_argument("--print-schema", action="store_true", help="print the profile schema and exit")
+    ap.add_argument("--pack", nargs=2, metavar=("VAULT", "ZIP"),
+                    help="zip an existing vault folder for download (hosted sandboxes) and exit")
     args = ap.parse_args()
 
     if args.print_schema:
         print(SCHEMA)
+        return 0
+    if args.pack:
+        try:
+            out = write_zip(Path(args.pack[0]), Path(args.pack[1]))
+        except BuildError as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 1
+        print(f"packed: {out}")
         return 0
     if not args.profile:
         ap.error("profile.json is required (or use --print-schema)")

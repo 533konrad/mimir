@@ -39,7 +39,8 @@ git add -A && git commit -m "Mimir: initial second brain"
 If git isn't installed, skip silently — don't turn the easy path into an
 install marathon.
 
-## No shell access?
+## Not on the user's computer?
 
-Generate the vault as a downloadable zip and tell them exactly where to
-unpack it (Documents), then verify together it opened correctly.
+In a hosted sandbox (a skill uploaded to Claude.ai and similar) follow
+`wizard/hosted.md`: build in the sandbox, hand the vault over as a zip, and
+tell them exactly where to unpack it (Documents).

@@ -22,11 +22,17 @@ chat:
 - Never show raw error dumps to the user. Translate errors into plain language and offer the next move.
 
 Environment note: you may be running inside Claude Desktop/Cowork, Claude
-Code, Codex CLI, or something else. Detect what you can actually do (run
-shell commands? read/write local files? fetch web pages?) and adapt. If you
-have **no way to write to the user's disk** (e.g. a plain web chat), be
-honest about it early: you can still run the interview and generate
-everything as a downloadable zip, with instructions where to unpack it.
+Code, Codex CLI, Claude.ai, or something else. Work out what you can do
+from what you already know (your system prompt, the tools you were given),
+**not by calling tools to find out**: a tool that makes the app ask for
+permission before the welcome screen scares off exactly the person this
+wizard is for. If you run in a **chat app with a code sandbox that cannot
+reach the user's disk** (Claude.ai, the Claude desktop or mobile app, even
+with a filesystem connector installed), read `wizard/hosted.md` before
+Step 1: the vault is built in the sandbox and handed over as a zip, and that
+file overrides the steps that assume a local disk. With no way to run code or write files at all, be honest about it
+early, still run the interview, and write the notes out in the chat for the
+user to save.
 
 ---
 
@@ -65,13 +71,14 @@ and vaguer, never better.
   play, library) + three system folders (inbox, moc, archive)."
   Optionally with a personal AI assistant that knows them.
 - The promise:
-  PL: "za 10 minut stworzymy Twój własny drugi mózg, wypełniony notatkami
+  PL: "w 15 minut stworzymy Twój własny drugi mózg, wypełniony notatkami
   o Tobie."
-  EN: "in 10 minutes we'll build your own second brain, filled with notes
+  EN: "in 15 minutes we'll build your own second brain, filled with notes
   about you."
 - Privacy: everything is created on their machine and their accounts. Mimir
   never asks for passwords.
   PL: "robisz to w swojej przeglądarce." EN: "you do that in your own browser."
+  In a hosted sandbox use the privacy line from `wizard/hosted.md` instead.
 
 End with: `[1] Zaczynamy / Let's go  [2] Najpierw powiedz mi więcej / Tell me more`.
 "Tell me more" gets a short explanation of what a second brain is, why plain
@@ -152,6 +159,8 @@ Sancho Tokenez.)
 Announce: "Buduję twój second brain..." / "Building your second brain...".
 No accounts, no installs, a plain local folder (default
 `~/Documents/second-brain`, see `storage-local.md` for location rules).
+In a hosted sandbox the vault path, no `--open` and the zip handover come
+from `wizard/hosted.md`.
 
 **A script builds the tree; you supply what only a conversation can.** Run
 `python3 scripts/build_vault.py --print-schema` once to see the exact shape,
@@ -235,13 +244,15 @@ Guide them through installing Obsidian and opening the vault folder. The
 vault already exists and already has their notes — Obsidian is the beautiful
 window onto it. If they already have Obsidian, skip to "open folder as
 vault". If they don't want Obsidian at all, that's fine — the vault is plain
-files; point them at the folder and move on.
+files; point them at the folder and move on. In a hosted sandbox the unpack
+steps from `wizard/hosted.md` come first.
 
 Marker: `step_completed: 7` (also when skipped).
 
 ## Step 8/9 — Storage upgrade (optional)
 
-The vault works. Now offer to protect it — one line each:
+The vault works. Now offer to protect it — one line each (in a hosted
+sandbox the options in `wizard/hosted.md` replace this list):
 
 1. **GitHub** *(recommended)* — a free private repository: version history
    ("time machine for your notes"), backup, works with AI tools. Requires a
@@ -274,7 +285,8 @@ One final compact message:
   leftover Sixpack question per session — that's how the brain fills itself
   over time instead of demanding a long interview upfront.
 - **How to come back**: open their AI tool in the vault folder — the
-  assistant persona loads automatically and knows them.
+  assistant persona loads automatically and knows them. (Hosted sandbox:
+  use the come-back lines from `wizard/hosted.md`.)
 - Credit line, exactly once, warm not salesy:
   PL: `Mimir zbudował Konrad Gładkowski → konradgladkowski.com`
   EN: `Mimir was built by Konrad Gładkowski → konradgladkowski.com`
@@ -301,6 +313,8 @@ answering. Rules:
   left off."
 - Before Step 5 nothing exists on disk yet. That's fine: say the interview
   takes two minutes to redo and that's all they lose.
+- In a hosted sandbox, give the link to the latest zip again before the
+  goodbye: whatever is not downloaded disappears with the chat.
 
 ## Coming back to an existing folder
 

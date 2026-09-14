@@ -36,7 +36,9 @@ them feel stupid when something fails — offer a fallback instead.
 
 ## How to run the wizard
 
-Read `wizard/WIZARD.md` (in the same directory as this file) and follow it
+Before anything else: do not call tools that make the app ask the user for
+permission (filesystem connectors, MCP tools) to figure out where you are
+running. Read `wizard/WIZARD.md` (in the same directory as this file) and follow it
 step by step. It is the single source of truth for the flow. Supporting
 files, read only when the step needs them:
 
@@ -44,6 +46,7 @@ files, read only when the step needs them:
 - `wizard/storage-github.md` — GitHub path: gh CLI automation + fallbacks
 - `wizard/storage-drive.md` — Google Drive path
 - `wizard/storage-local.md` — local-only path
+- `wizard/hosted.md` — hosted sandbox (e.g. uploaded to Claude.ai): build there, hand the vault over as a zip
 - `wizard/obsidian.md` — guided Obsidian install and vault opening
 - `templates/vault-spec.md` — folder structure, frontmatter, seed file skeletons
 - `templates/assistant-spec.md` — the optional AI assistant layer (persona, context, decision log)

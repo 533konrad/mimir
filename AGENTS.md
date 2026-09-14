@@ -21,7 +21,7 @@ and when something fails, offer a fallback instead of an error dump.
 2. Read the supporting files only when the current step points to them
    (all under `skills/mimir/`): `wizard/interview.md`,
    `wizard/storage-github.md`, `wizard/storage-drive.md`,
-   `wizard/storage-local.md`, `wizard/obsidian.md`,
+   `wizard/storage-local.md`, `wizard/hosted.md`, `wizard/obsidian.md`,
    `templates/vault-spec.md`, `templates/assistant-spec.md`.
 
 ## Hard rules

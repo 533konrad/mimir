@@ -9,7 +9,7 @@
 
 ## 🇵🇱 Po polsku
 
-Mimir to wizard, który rozmawia z Tobą przez ~10 minut i buduje Ci
+Mimir to wizard, który rozmawia z Tobą przez 15 minut i buduje Ci
 **second brain** — jeden folder zwykłych plików tekstowych w strukturze
 **SIXPACK**: sześć klocków życia, z których każdy odpowiada na jedno pytanie:
 
@@ -61,7 +61,17 @@ npx skills add 533konrad/mimir
 
 Wybierz jedną z dwóch dróg. Obie naraz = Mimir zainstalowany dwa razy.
 
-**Sposób 2 — magiczny prompt (dowolne AI z dostępem do internetu):**
+**Sposób 2 — Claude.ai w przeglądarce, bez terminala (działa też na darmowym planie):**
+
+1. Pobierz plik [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill).
+2. W Claude.ai otwórz **Settings → Capabilities** i włącz **Code execution
+   and file creation** (na planie Team lub Enterprise włącza to administrator).
+3. Wejdź w **Customize → Skills → + → Create skill → Upload a skill** i wskaż
+   pobrany plik.
+4. W nowej rozmowie napisz: **„Uruchom Mimira"**. Na końcu pobierasz gotowy
+   second brain jako jeden plik zip.
+
+**Sposób 3 — magiczny prompt (dowolne AI z dostępem do internetu):**
 
 Wklej do swojego AI:
 
@@ -69,7 +79,7 @@ Wklej do swojego AI:
 > i poprowadź mnie przez niego jako wizard Mimir. Pozostałe pliki repo
 > znajdziesz pod https://raw.githubusercontent.com/533konrad/mimir/main/skills/mimir/
 
-**Sposób 3 — bez terminala:**
+**Sposób 4 — pobrany folder (AI na Twoim komputerze):**
 
 1. Pobierz to repo: zielony przycisk **Code → Download ZIP**, rozpakuj.
 2. Otwórz swoje AI w rozpakowanym folderze (albo dodaj folder do rozmowy).
@@ -85,7 +95,7 @@ przeglądarce. Repozytorium z notatkami jest domyślnie **prywatne**.
 
 ## 🇬🇧 In English
 
-Mimir is a wizard that talks with you for ~10 minutes and builds your
+Mimir is a wizard that talks with you for 15 minutes and builds your
 **second brain** — one folder of plain text files in the **SIXPACK**
 structure: six blocks of life, each answering one question (**work** — what
 do I live off? · **public** — what do I give the world? · **self** — who am
@@ -131,13 +141,23 @@ npx skills add 533konrad/mimir
 
 Pick one route. Both at once leaves you with Mimir installed twice.
 
-**Option 2 — magic prompt (any AI with internet access):**
+**Option 2 — Claude.ai in the browser, no terminal (the free plan works too):**
+
+1. Download [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill).
+2. In Claude.ai open **Settings → Capabilities** and turn on **Code execution
+   and file creation** (on Team or Enterprise plans an admin does this).
+3. Go to **Customize → Skills → + → Create skill → Upload a skill** and pick
+   the downloaded file.
+4. In a new chat say: **"Run Mimir"**. At the end you download your second
+   brain as a single zip file.
+
+**Option 3 — magic prompt (any AI with internet access):**
 
 > Read https://raw.githubusercontent.com/533konrad/mimir/main/skills/mimir/wizard/WIZARD.md
 > and guide me through it as the Mimir wizard. Other repo files live under
 > https://raw.githubusercontent.com/533konrad/mimir/main/skills/mimir/
 
-**Option 3 — no terminal:**
+**Option 4 — downloaded folder (an AI on your computer):**
 
 1. Download this repo: green **Code → Download ZIP** button, unpack it.
 2. Open your AI in the unpacked folder (or add the folder to a chat).
@@ -162,7 +182,8 @@ AGENTS.md              # entry point for Codex & other agents
 CLAUDE.md              # entry point for Claude Code opened in this folder
 evals/                 # trigger evals (run-triggers.py) + manual dry-run scenarios
 CHANGELOG.md           # what changed in each version
-tests/                 # repo checks + vault builder tests, run on every push
+scripts/build_skill.py # packs mimir.skill for Claude.ai (attached to every release)
+tests/                 # repo checks, vault builder and bundle tests, run on every push
 ```
 
 ---

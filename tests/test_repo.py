@@ -111,6 +111,49 @@ class ReferencesTest(unittest.TestCase):
         self.assertEqual(missing, [])
 
 
+class PromiseTest(unittest.TestCase):
+    """Mimir promises 15 minutes, everywhere: README, landing, ads, wizard.
+    A stray "10 minutes" in one place makes every other number look made up."""
+
+    DURATION_RE = re.compile(r"(?i)(?<!\d)(\d{1,2})[ -]?(?:minut\w*|minutes?|min)\b")
+    PROMISE = "15"
+    # Short sub-steps that are not the promise: connect GitHub in 5, install
+    # Obsidian in 3, redo the interview in 2, the obsidian-git interval of 30.
+    # Anything else (10, 20...) reads as a competing promise and fails.
+    SUB_STEPS = {"2", "3", "5", "30"}
+
+    # Where the promise is made to a user. Internal model instructions carry
+    # their own budgets (interview.md: "5-7 minutes" for the interview alone,
+    # assistant-spec.md: the "40-minute interrogation" to avoid) and are not
+    # checked here.
+    USER_FACING = [
+        "README.md",
+        "skills/mimir/SKILL.md",
+        "skills/mimir/wizard/WIZARD.md",
+        "skills/mimir/wizard/hosted.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+    ]
+
+    def test_every_advertised_duration_is_15_minutes(self):
+        offenders = []
+        for rel in self.USER_FACING:
+            doc = ROOT / rel
+            for line_no, line in enumerate(read(doc).splitlines(), 1):
+                for match in self.DURATION_RE.finditer(line):
+                    if match.group(1) == self.PROMISE or match.group(1) in self.SUB_STEPS:
+                        continue
+                    offenders.append(f"{doc.relative_to(ROOT)}:{line_no}: {match.group(0)}")
+        self.assertEqual(offenders, [], "Mimir's promise is 15 minutes; see PromiseTest")
+
+    def test_short_skill_description_says_15_minutes(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("build_skill", ROOT / "scripts" / "build_skill.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertIn("15-minut", module.SHORT_DESCRIPTION)
+
+
 class RedLinesTest(unittest.TestCase):
     def test_skill_and_agents_carry_the_same_red_lines(self):
         skill = normalized(read(SKILL_DIR / "SKILL.md"))

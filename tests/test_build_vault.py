@@ -10,8 +10,11 @@ import importlib.util
 import json
 import os
 import re
+import subprocess
+import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 try:  # optional: CI installs it for the YAML round-trip check
@@ -133,6 +136,41 @@ class BuildVaultTest(unittest.TestCase):
         self.assertEqual((self.vault / "README.md").read_text(encoding="utf-8"), "stary README\n")
         self.assertEqual((self.vault / "work" / "stara-notatka.md").read_text(encoding="utf-8"), "stara\n")
         self.assertIn("README.md", result.skipped)
+
+    # ------------------------------------------------ hosted sandbox handover
+
+    def test_pack_puts_the_vault_folder_at_the_zip_root(self):
+        self.build(make_profile(self.vault))
+        out = bv.write_zip(self.vault, self.tmp / "downloads" / "second-brain.zip")
+        with zipfile.ZipFile(out) as bundle:
+            names = bundle.namelist()
+        self.assertTrue(all(n.startswith("second-brain/") for n in names), names)
+        for rel in ("README.md", "moc/home.md", ".mimir/state.md", ".obsidian/app.json", "CLAUDE.md"):
+            self.assertIn(f"second-brain/{rel}", names)
+        self.assertEqual(len(names), len([p for p in self.vault.rglob("*") if p.is_file()]))
+
+    def test_pack_leaves_the_vault_untouched(self):
+        self.build(make_profile(self.vault))
+        before = snapshot(self.vault, skip=())
+        bv.write_zip(self.vault, self.tmp / "out.zip")
+        self.assertEqual(before, snapshot(self.vault, skip=()))
+
+    def test_pack_refuses_a_zip_inside_the_vault_or_a_missing_vault(self):
+        self.build(make_profile(self.vault))
+        with self.assertRaises(bv.BuildError):
+            bv.write_zip(self.vault, self.vault / "inbox" / "vault.zip")
+        with self.assertRaises(bv.BuildError):
+            bv.write_zip(self.tmp / "nope", self.tmp / "out.zip")
+
+    def test_pack_command_line(self):
+        self.build(make_profile(self.vault))
+        out = self.tmp / "downloads" / "second-brain.zip"
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), "--pack", str(self.vault), str(out)],
+            capture_output=True, text=True, env=dict(os.environ, MIMIR_NO_OPEN="1"),
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(zipfile.is_zipfile(out))
 
     def test_dry_run_writes_nothing(self):
         result = self.build(make_profile(self.vault), dry_run=True)

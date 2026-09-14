@@ -10,6 +10,31 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+### Added
+
+- Claude.ai route with no terminal, on every plan including Free: a
+  `mimir.skill` file attached to each GitHub Release
+  (`releases/latest/download/mimir.skill`), uploaded in Customize → Skills.
+  `scripts/build_skill.py` builds it with a short Polish description within
+  Claude.ai's 200-character limit (it is what users see in their Skills
+  list); the repo `SKILL.md` keeps the long one for Claude Code.
+- Hosted mode, `wizard/hosted.md`: when Mimir runs in a sandbox that cannot
+  reach the user's disk, it builds the vault there and hands it over as a zip,
+  with its own privacy line, unpack and Obsidian steps, storage options, and
+  a way to continue later by attaching the zip. The environment is read from
+  what the model already knows, never by calling connector tools, so no
+  permission pop-up appears before the welcome screen.
+- `build_vault.py --pack VAULT ZIP` zips a vault with the vault folder at the
+  root, refusing a zip path inside the vault.
+- Release workflow: pushing a `v*` tag runs the tests, builds `mimir.skill`
+  and publishes a GitHub Release with notes taken from this changelog.
+
+### Changed
+
+- One promise everywhere: 15 minutes. The README said "~10 minutes" and the
+  welcome screen "in 10 minutes" while the title, the skill description and
+  the landing page said 15. A test now fails on any other advertised duration.
+
 ## [2.1.1] - 2026-09-14
 
 ### Fixed
