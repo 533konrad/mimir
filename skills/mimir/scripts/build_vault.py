@@ -318,18 +318,36 @@ def today() -> str:
     return _dt.date.today().isoformat()
 
 
+_YAML_SPECIAL = re.compile(
+    r"""^(?:
+        (?:y|yes|n|no|true|false|on|off|null|~)            # booleans and null (YAML 1.1 and 1.2)
+      | [-+]?(?:\d[\d_]*)?\.?\d+(?:[eE][-+]?\d+)?          # int and float
+      | [-+]?\.(?:inf|nan)                                 # infinity, not-a-number
+      | 0x[0-9a-f]+ | 0o[0-7]+                             # hex, octal
+      | \d{4}-\d{1,2}-\d{1,2}(?:[tT ].*)?                  # dates and timestamps
+    )$""",
+    re.IGNORECASE | re.VERBOSE,
+)
+
+
 def yaml_scalar(value: str) -> str:
     """Quote a plain string only when unquoted YAML would misparse it.
 
     `title: Rekrutacja: Q4` is invalid YAML (a second `:` starts a nested
-    mapping) and `title: Sprint #3` truncates at ` #` (a comment). Obsidian
-    then shows the frontmatter in red and drops the properties silently.
+    mapping), `title: Sprint #3` truncates at ` #` (a comment) and
+    `title: - lista` opens a sequence. `2026`, `yes` or `null` parse as a
+    number, a boolean or nothing instead of text. Obsidian then shows the
+    frontmatter in red or the property with the wrong type.
     """
     unsafe = (
-        re.search(r":(\s|$)", value)
+        not value
+        or re.search(r":(\s|$)", value)
         or re.search(r"(^|\s)#", value)
         or value != value.strip()
-        or (value[:1] in "\"'[]{}!&*?|>%@`," if value else True)
+        or value[0] in "\"'[]{}!&*?|>%@`,"
+        or re.match(r"^[-?:](\s|$)", value)
+        or value.startswith(("---", "..."))
+        or _YAML_SPECIAL.match(value)
     )
     if not unsafe:
         return value

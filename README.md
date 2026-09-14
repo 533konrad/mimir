@@ -49,7 +49,9 @@ claude plugin install mimir@533konrad
 ```
 
 Potem w swoim AI napisz: **„Uruchom Mimira"** i odpowiadaj na pytania. Tyle.
-Aktualizacje przychodzą same, razem z repo.
+Chcesz, żeby nowe wersje Mimira dociągały się same? W Claude Code wpisz
+`/plugin`, wejdź w **Marketplaces**, wybierz `533konrad` i kliknij
+**Enable auto-update**. Bez tego zostajesz na wersji z dnia instalacji.
 
 Nie masz Claude Code? Ta sama rzecz przez instalator, na Codexa i resztę agentów:
 
@@ -117,7 +119,9 @@ claude plugin install mimir@533konrad
 ```
 
 Then tell your AI: **"Run Mimir"** and answer the questions. That's it.
-Updates arrive automatically, together with the repo.
+Want new Mimir versions to arrive on their own? In Claude Code type
+`/plugin`, open **Marketplaces**, pick `533konrad` and choose
+**Enable auto-update**. Without it you stay on the version you installed.
 
 Not on Claude Code? The same thing via the installer, for Codex and other agents:
 

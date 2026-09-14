@@ -10,6 +10,23 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-09-14
+
+### Fixed
+
+- Note titles that YAML reads as something other than text are now quoted
+  too: a leading `- ` (opened a list and broke the frontmatter), numbers
+  (`2026`), dates, and `yes` / `no` / `null` (became a number, a boolean or
+  nothing). 2.1.0 covered only `: ` and ` #`.
+- The README promised that plugin updates arrive automatically. Claude Code
+  keeps auto-update off for third-party marketplaces, so it now says how to
+  switch it on (`/plugin` → Marketplaces → `533konrad` → Enable auto-update).
+
+### Changed
+
+- The test suite round-trips generated titles through a real YAML parser
+  (PyYAML, installed in CI only; the builder stays stdlib-only).
+
 ## [2.1.0] - 2026-09-14
 
 ### Added
@@ -84,6 +101,7 @@ maintainer decides to release: the heading gets a number and a date, and the
 - `skills/mimir/` layout for `npx skills add 533konrad/mimir`.
 - Three install routes: skills CLI, magic prompt, ZIP download.
 
-[Unreleased]: https://github.com/533konrad/mimir/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/533konrad/mimir/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/533konrad/mimir/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/533konrad/mimir/compare/8e0d84a...v2.1.0
 [2.0.0]: https://github.com/533konrad/mimir/commit/8e0d84a

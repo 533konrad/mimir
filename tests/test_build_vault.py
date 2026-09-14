@@ -14,6 +14,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
+try:  # optional: CI installs it for the YAML round-trip check
+    import yaml
+except ImportError:
+    yaml = None
+
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "skills" / "mimir" / "scripts" / "build_vault.py"
 
@@ -206,17 +211,31 @@ class BuildVaultTest(unittest.TestCase):
                 for key in keys:
                     self.assertRegex(head, rf"(?m)^{key}: ", f"{note}: {key}")
 
-    def test_titles_with_colon_or_hash_stay_valid_yaml(self):
-        """Titles are free text from the interview; `Rekrutacja: Q4` is
-        invalid YAML unquoted (a second `:` starts a nested mapping) and
-        ` #` starts a comment. frontmatter() must quote such values."""
+    MUST_QUOTE = ["Rekrutacja: Q4 #pilne", "Sprint #3", "- lista", "2026", "3.5", "yes",
+                  "No", "null", "~", "2026-09-14", '"Cytat" na start', "[szkic] okładka"]
+    STAYS_PLAIN = ["Plan na 2027", "C# notatki", "100%", "Zwykły tytuł", "Okładka dla wydawnictwa"]
+
+    def test_titles_stay_text_in_valid_yaml(self):
+        """Titles are free text from the interview. Unquoted, `Rekrutacja: Q4`
+        is invalid YAML, ` #` starts a comment, `- lista` opens a sequence,
+        and `2026`, `yes` or `null` stop being text. Only those get quoted."""
+        for title in self.MUST_QUOTE + self.STAYS_PLAIN:
+            with self.subTest(title=title):
+                line = bv.frontmatter({"title": title}, "2026-09-14").splitlines()[1]
+                quoted = line.startswith('title: "')
+                self.assertEqual(quoted, title in self.MUST_QUOTE, line)
+                if yaml is not None:
+                    self.assertEqual(yaml.safe_load(line), {"title": title}, line)
+
+    def test_built_note_with_risky_title_has_valid_frontmatter(self):
         note = {"path": "work/rekrutacja-q4.md", "title": "Rekrutacja: Q4 #pilne",
                 "in_home_map": False, "body": "x"}
         self.build(make_profile(self.vault, notes=[note]))
-        line = next(l for l in (self.vault / "work" / "rekrutacja-q4.md").read_text(encoding="utf-8").splitlines()
-                    if l.startswith("title: "))
-        value = line[len("title: "):]
-        self.assertTrue(value.startswith('"') or (": " not in value and " #" not in value), line)
+        text = (self.vault / "work" / "rekrutacja-q4.md").read_text(encoding="utf-8")
+        self.assertIn('title: "Rekrutacja: Q4 #pilne"', text)
+        if yaml is not None:
+            head = text.split("\n---\n", 1)[0][len("---\n"):]
+            self.assertEqual(yaml.safe_load(head)["title"], "Rekrutacja: Q4 #pilne")
 
     def test_assistant_entry_points_are_identical(self):
         self.build(make_profile(self.vault))
