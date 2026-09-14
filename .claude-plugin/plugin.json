@@ -1,6 +1,6 @@
 {
   "name": "mimir",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Mimir builds you a personal second brain: a SIXPACK markdown vault, optionally with an AI assistant layer, from a 15-minute guided interview. Built for non-technical people. PL + EN.",
   "author": {
     "name": "Konrad Gladkowski",

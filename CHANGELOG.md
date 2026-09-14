@@ -10,6 +10,8 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-09-14
+
 ### Added
 
 - Claude.ai route with no terminal, on every plan including Free: a
@@ -126,7 +128,8 @@ maintainer decides to release: the heading gets a number and a date, and the
 - `skills/mimir/` layout for `npx skills add 533konrad/mimir`.
 - Three install routes: skills CLI, magic prompt, ZIP download.
 
-[Unreleased]: https://github.com/533konrad/mimir/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/533konrad/mimir/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/533konrad/mimir/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/533konrad/mimir/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/533konrad/mimir/compare/8e0d84a...v2.1.0
 [2.0.0]: https://github.com/533konrad/mimir/commit/8e0d84a
