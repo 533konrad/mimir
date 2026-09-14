@@ -10,6 +10,8 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-09-14
+
 ### Added
 
 - Claude Code plugin: the repo is its own single-plugin marketplace
@@ -28,6 +30,13 @@ maintainer decides to release: the heading gets a number and a date, and the
   "coming back to an existing folder" flow with five cases.
 - Trigger evals (`evals/run-triggers.py`, `evals/triggers.md`) and manual
   dry-run scenarios (`evals/scenarios.md`).
+- Automated checks on every push (GitHub Actions, Python 3.9 and 3.13, stdlib
+  only): `python3 -m unittest discover -s tests`.
+  - `tests/test_repo.py`: SKILL.md name and description limit, every referenced
+    file and raw GitHub URL exists, the red lines in `SKILL.md` and `AGENTS.md`
+    stay in sync, `plugin.json` matches the newest `CHANGELOG.md` version.
+  - `tests/test_build_vault.py`: rebuilds leave existing files byte-identical,
+    two-way MOC links, `people/` never nested, quiz sizing, refused profiles.
 
 ### Changed
 
@@ -55,6 +64,16 @@ maintainer decides to release: the heading gets a number and a date, and the
 - The first note no longer resurrects a block the user declined in the quiz.
 - `AGENTS.md` carried the old red lines, so Codex users got outdated rules. It
   now matches `SKILL.md` and names it as the source of truth.
+- The language red line in `SKILL.md` and `AGENTS.md` still said to offer
+  Polish and English at the start, contradicting Step 0 (detect, never ask).
+- A mapped note added on a rebuild (Step 6's first catch, after `moc/home.md`
+  already exists from Step 5) was never linked back from the map, silently
+  breaking the two-way MOC guarantee. `build_vault.py` now appends the
+  missing link under a small "Dopisane później / Added later" heading
+  instead of leaving it one-way.
+- A title containing `: ` or a `#` (e.g. `Rekrutacja: Q4 #pilne`) produced
+  invalid YAML frontmatter; Obsidian showed it in red and dropped the
+  properties. Titles needing it are now quoted.
 
 ## [2.0.0] - 2026-09-03
 
@@ -64,3 +83,7 @@ maintainer decides to release: the heading gets a number and a date, and the
   inbox, maps of content, archive) with an optional AI assistant layer.
 - `skills/mimir/` layout for `npx skills add 533konrad/mimir`.
 - Three install routes: skills CLI, magic prompt, ZIP download.
+
+[Unreleased]: https://github.com/533konrad/mimir/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/533konrad/mimir/compare/8e0d84a...v2.1.0
+[2.0.0]: https://github.com/533konrad/mimir/commit/8e0d84a

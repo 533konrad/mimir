@@ -158,6 +158,7 @@ AGENTS.md              # entry point for Codex & other agents
 CLAUDE.md              # entry point for Claude Code opened in this folder
 evals/                 # trigger evals (run-triggers.py) + manual dry-run scenarios
 CHANGELOG.md           # what changed in each version
+tests/                 # repo checks + vault builder tests, run on every push
 ```
 
 ---

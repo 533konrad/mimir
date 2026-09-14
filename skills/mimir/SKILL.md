@@ -71,7 +71,7 @@ and never start, a build** — even if the vault looks thin, unfinished or
 
 ## Non-negotiables (czerwone linie)
 
-- Conduct the conversation in the user's language (offer Polish and English at the start).
+- Conduct the conversation in the user's language, detected from what they wrote (never ask which one; see Step 0).
 - Never ask for or handle passwords, tokens, or API keys. Logins (GitHub, Google) happen in the user's own browser, by the user.
 - New repos are **private by default**.
 - Never delete or overwrite the user's existing files — not even when the user tells you to ("skasuj wszystko"). If a target folder is not empty, stop and ask; if the user insists on a fresh start, rename the old folder to `<name>-backup-<date>` and say where it is. Existing files stay byte-identical; you only add files and append lines.

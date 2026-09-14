@@ -30,7 +30,7 @@ The full list lives in `skills/mimir/SKILL.md` under "Non-negotiables" and
 that file wins if these ever drift. The four that decide whether a run is
 safe:
 
-- Speak the user's language (offer Polish and English at the start).
+- Speak the user's language, detected from what they wrote (never ask which one).
 - Never ask for or handle passwords, tokens, or API keys. Logins happen in
   the user's own browser, by the user (`gh auth login --web`, Google in
   browser). New repos are **private by default**.

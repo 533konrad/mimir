@@ -318,11 +318,57 @@ def today() -> str:
     return _dt.date.today().isoformat()
 
 
+def yaml_scalar(value: str) -> str:
+    """Quote a plain string only when unquoted YAML would misparse it.
+
+    `title: Rekrutacja: Q4` is invalid YAML (a second `:` starts a nested
+    mapping) and `title: Sprint #3` truncates at ` #` (a comment). Obsidian
+    then shows the frontmatter in red and drops the properties silently.
+    """
+    unsafe = (
+        re.search(r":(\s|$)", value)
+        or re.search(r"(^|\s)#", value)
+        or value != value.strip()
+        or (value[:1] in "\"'[]{}!&*?|>%@`," if value else True)
+    )
+    if not unsafe:
+        return value
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def _wikilinks(text: str) -> set:
+    """Wikilinks in a note's body, ignoring ones mentioned inside inline
+    code (the MOC explanation quotes `moc: "[[home]]"` as an example)."""
+    body = text.split("\n---\n", 1)[-1]
+    body = re.sub(r"`[^`]*`", "", body)
+    return set(re.findall(r"\[\[([^\]|#]+)\]\]", body))
+
+
+def append_home_links(existing_text: str, missing_by_block: dict, language: str) -> str:
+    """Link notes into an EXISTING moc/home.md that create-if-missing would
+    otherwise leave one-way (see build(): a mapped note added on a later
+    run, e.g. the Step 6 first catch, arrives after home.md already exists).
+
+    Appended as a small addendum rather than re-parsed into the original
+    per-block bullet lists: parsing back a file the user may have hand-edited
+    risks corrupting their edits, where a plain append never can.
+    """
+    header = {"pl": "## Dopisane później", "en": "## Added later"}[language]
+    text = existing_text.rstrip("\n")
+    if header not in text:
+        text += "\n\n" + header + "\n"
+    lines = [text]
+    for block, notes in missing_by_block.items():
+        for n in notes:
+            lines.append(f"- **`{block}/`** [[{Path(n['path']).stem}]] — {n['title']}")
+    return "\n".join(lines) + "\n"
+
+
 def frontmatter(note: dict, created: str) -> str:
     tags = note.get("tags") or []
     lines = [
         "---",
-        f"title: {note['title']}",
+        f"title: {yaml_scalar(note['title'])}",
         f"status: {note.get('status', 'active')}",
         "tags: [" + ", ".join(tags) + "]",
         f"horizon: {note.get('horizon', 'quarter')}",
@@ -738,7 +784,25 @@ def build(profile: dict, dry_run: bool = False) -> Vault:
     v.write("README.md", gen_readme(profile, tree))
 
     # 3. the map, then 4. the inbox seeds
-    v.write("moc/home.md", gen_home(profile, tree, notes))
+    home_rel = "moc/home.md"
+    v.write(home_rel, gen_home(profile, tree, notes))
+    if home_rel in v.skipped:
+        home_path = root / home_rel
+        if home_path.exists():
+            existing = home_path.read_text(encoding="utf-8")
+            linked = _wikilinks(existing)
+            missing: dict = {}
+            for n in notes:
+                if n.get("in_home_map") and Path(n["path"]).stem not in linked:
+                    missing.setdefault(n["path"].split("/")[0], []).append(n)
+            if missing:
+                tag = " (would update: new map link)" if dry_run else " (updated: new map link)"
+                if not dry_run:
+                    home_path.write_text(
+                        append_home_links(existing, missing, profile["language"]),
+                        encoding="utf-8",
+                    )
+                v.created.append(home_rel + tag)
     v.write("inbox/welcome.md", gen_welcome(profile))
     v.write("inbox/sixpack-do-uzupelnienia.md", gen_fill(profile))
 
