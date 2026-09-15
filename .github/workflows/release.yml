@@ -1,8 +1,8 @@
 name: release
 
-# A version tag (v2.2.0) publishes a GitHub Release with mimir.skill attached,
-# so https://github.com/533konrad/mimir/releases/latest/download/mimir.skill
-# always serves the newest bundle. Cutting a version stays a human decision.
+# A version tag (v2.2.1) publishes a GitHub Release with both upload packages,
+# so .../releases/latest/download/mimir.skill and .../mimir-m365.zip always
+# serve the newest build. Cutting a version stays a human decision.
 
 on:
   push:
@@ -29,12 +29,12 @@ jobs:
         env:
           MIMIR_NO_OPEN: "1"
 
-      - name: Build mimir.skill and release notes
+      - name: Build the packages and release notes
         run: |
-          python scripts/build_skill.py --out dist/mimir.skill
+          python scripts/build_skill.py --out dist
           python scripts/build_skill.py --notes "${GITHUB_REF_NAME#v}" > dist/notes.md
 
       - name: Publish the GitHub Release
-        run: gh release create "$GITHUB_REF_NAME" dist/mimir.skill --title "Mimir ${GITHUB_REF_NAME#v}" --notes-file dist/notes.md
+        run: gh release create "$GITHUB_REF_NAME" dist/mimir.skill dist/mimir-m365.zip --title "Mimir ${GITHUB_REF_NAME#v}" --notes-file dist/notes.md
         env:
           GH_TOKEN: ${{ github.token }}

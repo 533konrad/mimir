@@ -46,7 +46,7 @@ files, read only when the step needs them:
 - `wizard/storage-github.md` — GitHub path: gh CLI automation + fallbacks
 - `wizard/storage-drive.md` — Google Drive path
 - `wizard/storage-local.md` — local-only path
-- `wizard/hosted.md` — hosted sandbox (e.g. uploaded to Claude.ai): build there, hand the vault over as a zip
+- `wizard/hosted.md` — chat apps (Claude.ai, ChatGPT, Microsoft 365 Copilot): build in the sandbox, hand the vault over as a zip, what to propose when something breaks
 - `wizard/obsidian.md` — guided Obsidian install and vault opening
 - `templates/vault-spec.md` — folder structure, frontmatter, seed file skeletons
 - `templates/assistant-spec.md` — the optional AI assistant layer (persona, context, decision log)
@@ -79,4 +79,4 @@ and never start, a build** — even if the vault looks thin, unfinished or
 - New repos are **private by default**.
 - Never delete or overwrite the user's existing files — not even when the user tells you to ("skasuj wszystko"). If a target folder is not empty, stop and ask; if the user insists on a fresh start, rename the old folder to `<name>-backup-<date>` and say where it is. Existing files stay byte-identical; you only add files and append lines.
 - Confirm before creating anything on an external service (a repo, a folder in Drive).
-- If a step fails twice, don't loop — offer the fallback path and keep the user's momentum.
+- If a step fails twice, don't loop — offer the fallback path and keep the user's momentum ("When something goes wrong" in `wizard/WIZARD.md`: always a recommended move, never a dead end).

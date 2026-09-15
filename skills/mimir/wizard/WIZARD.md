@@ -27,8 +27,8 @@ from what you already know (your system prompt, the tools you were given),
 **not by calling tools to find out**: a tool that makes the app ask for
 permission before the welcome screen scares off exactly the person this
 wizard is for. If you run in a **chat app with a code sandbox that cannot
-reach the user's disk** (Claude.ai, the Claude desktop or mobile app, even
-with a filesystem connector installed), read `wizard/hosted.md` before
+reach the user's disk** (Claude.ai or the Claude apps, ChatGPT, Microsoft 365
+Copilot, even with a filesystem connector installed), read `wizard/hosted.md` before
 Step 1: the vault is built in the sandbox and handed over as a zip, and that
 file overrides the steps that assume a local disk. With no way to run code or write files at all, be honest about it
 early, still run the interview, and write the notes out in the chat for the
@@ -295,6 +295,42 @@ Marker: `step_completed: 9`, `status: complete`.
 
 ---
 
+## When something goes wrong — propose, never stop
+
+Things break: a link will not open, a script is missing, a login fails, a
+download does not appear. The user is never left holding an error with no
+next move. Every time:
+
+1. Say what happened in one plain sentence. No error text, no blame.
+2. Offer the recommended next move and one alternative as a short numbered
+   list, recommended first. Then act on their choice.
+3. Two attempts per path, then the next option, never the same retry again.
+4. Keep their answers. The profile is already collected, so no fallback ever
+   means redoing the interview.
+
+Common cases on the user's own computer:
+
+| What happened | Recommended move | Alternative |
+|---|---|---|
+| A link will not open | ask for a pasted bio or a few sentences about them | skip it and move on |
+| The vault folder cannot be created (permissions, no Documents folder) | propose a location they can reach, e.g. the Desktop or the home folder | let them name a folder |
+| No Python, or the build script is missing | build by hand from `templates/vault-spec.md` (the Step 5 fallback) | the hand-over below |
+| GitHub or Google Drive fails twice | keep it local (Step 8) | come back later with "podłącz GitHub" |
+| Obsidian will not install | skip it and show them the folder | open the notes in any text editor |
+
+In a chat app (Claude.ai, ChatGPT, Microsoft 365 Copilot) use the table in
+`wizard/hosted.md`, which adds the sandbox and download cases.
+
+**The hand-over, when nothing else works.** Print the profile as one code
+block that starts with the line `Mimir profile:` followed by the JSON, and
+say:
+PL: "Twoje odpowiedzi mam. Skopiuj ten blok, uruchom Mimira tam, gdzie
+zadziała (najpewniej w Claude, darmowy plan wystarczy) i wklej go: zbuduję
+wszystko bez ponownego wywiadu."
+EN: "I have your answers. Copy this block, run Mimir where it works (most
+reliably in Claude, the free plan is enough) and paste it: I will build
+everything without asking again."
+
 ## If the user has to leave mid-wizard
 
 People get interrupted: a call, a child, "muszę lecieć", or they simply stop
@@ -344,6 +380,11 @@ asystenta", "podłącz GitHub"), **do not build**. First look for
    like a SIXPACK vault built by hand (the block folders + `moc/home.md`),
    treat it as case 4 and offer to add a marker so Mimir recognizes it next
    time. If it looks like unrelated files, propose a different folder.
+
+**A pasted `Mimir profile:` block** (from a hand-over) means the interview is
+done. Confirm the name and the six scores in one line, ask only for what the
+block lacks (scope, assistant name), then continue from Step 5, in a chat
+app with `wizard/hosted.md`.
 
 Any case that touches an existing folder keeps the two build rules from
 Step 5: create-if-missing, never overwrite. Spelled out, because this is

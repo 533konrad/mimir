@@ -10,6 +10,35 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+## [2.2.1] - 2026-09-15
+
+### Added
+
+- ChatGPT and Microsoft 365 Copilot. A second package, `mimir-m365.zip`, with
+  `SKILL.md` at the zip root as Microsoft's Agent Builder requires, is
+  attached to every release beside `mimir.skill` (skill folder at the root,
+  for Claude and ChatGPT). The build refuses a package over Microsoft's
+  preview limits: 350 files, folder depth 3, accepted file types, `SKILL.md`
+  under 20,000 characters.
+- "When something goes wrong" in `WIZARD.md`, plus a table for chat apps in
+  `hosted.md`: every failure gets one plain sentence, a recommended move and
+  an alternative, never a dead end. The last rung hands the collected answers
+  over as a `Mimir profile:` block to paste where Mimir works, and a pasted
+  block skips the interview.
+
+### Changed
+
+- Hosted mode no longer assumes Claude. It finds its build script in the
+  sandbox, puts the zip where each app offers downloads (Claude
+  `/mnt/user-data/outputs`, ChatGPT `/mnt/data`, otherwise the app's own
+  output folder), and opens links only through the app's browsing tool,
+  since code in these sandboxes has no internet.
+- Upload packages carry a frontmatter of only `name` and `description` for
+  the widest compatibility, and their `agents/openai.yaml` shows a Polish
+  short description in the skills list.
+- README: route 2 covers Claude, ChatGPT and Microsoft 365 Copilot, with
+  plan requirements and which one is tested live.
+
 ## [2.2.0] - 2026-09-14
 
 ### Added
@@ -128,7 +157,8 @@ maintainer decides to release: the heading gets a number and a date, and the
 - `skills/mimir/` layout for `npx skills add 533konrad/mimir`.
 - Three install routes: skills CLI, magic prompt, ZIP download.
 
-[Unreleased]: https://github.com/533konrad/mimir/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/533konrad/mimir/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/533konrad/mimir/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/533konrad/mimir/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/533konrad/mimir/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/533konrad/mimir/compare/8e0d84a...v2.1.0

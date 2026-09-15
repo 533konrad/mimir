@@ -61,15 +61,26 @@ npx skills add 533konrad/mimir
 
 Wybierz jedną z dwóch dróg. Obie naraz = Mimir zainstalowany dwa razy.
 
-**Sposób 2 — Claude.ai w przeglądarce, bez terminala (działa też na darmowym planie):**
+**Sposób 2 — w aplikacji AI, bez terminala:**
 
-1. Pobierz plik [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill).
-2. W Claude.ai otwórz **Settings → Capabilities** i włącz **Code execution
-   and file creation** (na planie Team lub Enterprise włącza to administrator).
-3. Wejdź w **Customize → Skills → + → Create skill → Upload a skill** i wskaż
-   pobrany plik.
-4. W nowej rozmowie napisz: **„Uruchom Mimira"**. Na końcu pobierasz gotowy
-   second brain jako jeden plik zip.
+Wgrywasz Mimira jako skill, a na końcu rozmowy pobierasz gotowy second brain
+jako jeden plik zip.
+
+- **Claude** (claude.ai i aplikacja, każdy plan, także darmowy):
+  1. Pobierz [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill).
+  2. **Settings → Capabilities**: włącz **Code execution and file creation**
+     (na planie Team lub Enterprise włącza to administrator).
+  3. **Customize → Skills → + → Create skill → Upload a skill** i wskaż plik.
+- **ChatGPT** (plany Business, Enterprise i Edu; Free i Plus nie mają
+  skilli): pobierz [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill),
+  potem **Plugins → Skills → Create → Upload from your computer**.
+- **Microsoft 365 Copilot** (licencja Copilot i organizacja w programie
+  Frontier, funkcja w podglądzie): pobierz [`mimir-m365.zip`](https://github.com/533konrad/mimir/releases/latest/download/mimir-m365.zip),
+  potem **Agents & Skills → New agent → Configure → Skills → Add** i wgraj plik.
+
+Potem w nowej rozmowie napisz: **„Uruchom Mimira"**. Sprawdzone na żywo
+w Claude; w ChatGPT i Copilocie zgodnie z dokumentacją producentów. Gdyby coś
+nie zadziałało po drodze, Mimir sam zaproponuje obejście.
 
 **Sposób 3 — magiczny prompt (dowolne AI z dostępem do internetu):**
 
@@ -141,15 +152,26 @@ npx skills add 533konrad/mimir
 
 Pick one route. Both at once leaves you with Mimir installed twice.
 
-**Option 2 — Claude.ai in the browser, no terminal (the free plan works too):**
+**Option 2 — in an AI app, no terminal:**
 
-1. Download [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill).
-2. In Claude.ai open **Settings → Capabilities** and turn on **Code execution
-   and file creation** (on Team or Enterprise plans an admin does this).
-3. Go to **Customize → Skills → + → Create skill → Upload a skill** and pick
-   the downloaded file.
-4. In a new chat say: **"Run Mimir"**. At the end you download your second
-   brain as a single zip file.
+You upload Mimir as a skill, and at the end of the chat you download your
+second brain as a single zip file.
+
+- **Claude** (claude.ai and the app, every plan including Free):
+  1. Download [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill).
+  2. **Settings → Capabilities**: turn on **Code execution and file creation**
+     (on Team or Enterprise plans an admin does this).
+  3. **Customize → Skills → + → Create skill → Upload a skill** and pick the file.
+- **ChatGPT** (Business, Enterprise and Edu plans; Free and Plus have no
+  skills): download [`mimir.skill`](https://github.com/533konrad/mimir/releases/latest/download/mimir.skill),
+  then **Plugins → Skills → Create → Upload from your computer**.
+- **Microsoft 365 Copilot** (a Copilot licence and an organization in the
+  Frontier program, preview feature): download [`mimir-m365.zip`](https://github.com/533konrad/mimir/releases/latest/download/mimir-m365.zip),
+  then **Agents & Skills → New agent → Configure → Skills → Add** and upload it.
+
+Then say in a new chat: **"Run Mimir"**. Tested live in Claude; in ChatGPT and
+Copilot it follows the vendors' documentation. If something fails along the
+way, Mimir proposes a workaround itself.
 
 **Option 3 — magic prompt (any AI with internet access):**
 
@@ -182,7 +204,7 @@ AGENTS.md              # entry point for Codex & other agents
 CLAUDE.md              # entry point for Claude Code opened in this folder
 evals/                 # trigger evals (run-triggers.py) + manual dry-run scenarios
 CHANGELOG.md           # what changed in each version
-scripts/build_skill.py # packs mimir.skill for Claude.ai (attached to every release)
+scripts/build_skill.py # packs mimir.skill + mimir-m365.zip (attached to every release)
 tests/                 # repo checks, vault builder and bundle tests, run on every push
 ```
 
