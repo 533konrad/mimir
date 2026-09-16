@@ -154,6 +154,31 @@ class PromiseTest(unittest.TestCase):
         self.assertIn("15-minut", module.SHORT_DESCRIPTION)
 
 
+class NamingTest(unittest.TestCase):
+    """The six SIXPACK parts are "obszary" in anything a user reads: the
+    README, what the wizard says, and the text the build script writes into
+    their vault. "Klocki" is the author's own jargon and never ships."""
+
+    JARGON_RE = re.compile(r"(?i)klock|klocek")
+    # build_vault.py writes the vault's README, map and inbox notes; the
+    # assistant spec shapes what the assistant tells the user every week.
+    SHIPPED = PromiseTest.USER_FACING + [
+        "skills/mimir/scripts/build_vault.py",
+        "skills/mimir/templates/assistant-spec.md",
+        "skills/mimir/templates/vault-spec.md",
+        "skills/mimir/wizard/interview.md",
+    ]
+
+    def test_no_klocki_in_anything_a_user_reads(self):
+        offenders = [
+            f"{rel}:{n}: {line.strip()[:80]}"
+            for rel in self.SHIPPED
+            for n, line in enumerate(read(ROOT / rel).splitlines(), 1)
+            if self.JARGON_RE.search(line)
+        ]
+        self.assertEqual(offenders, [], 'SIXPACK parts are "obszary" for users, never "klocki"')
+
+
 class RedLinesTest(unittest.TestCase):
     def test_skill_and_agents_carry_the_same_red_lines(self):
         skill = normalized(read(SKILL_DIR / "SKILL.md"))

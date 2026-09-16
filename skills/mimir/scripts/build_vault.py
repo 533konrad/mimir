@@ -102,7 +102,7 @@ T = {
         },
         "home_title": "Mapa domowa",
         "home_intro": "Drzwi wejściowe do Twojego drugiego mózgu. Nie wiesz, gdzie zacząć? Zacznij tu.",
-        "home_blocks": "## Twoje klocki",
+        "home_blocks": "## Twoje obszary",
         "home_system": "## Foldery systemowe",
         "home_moc_what": """## Czym jest mapa treści
 
@@ -121,7 +121,7 @@ ludzie przestają notować.
 
 Raz w tygodniu, kwadrans: otwórz swoje AI w tym folderze i powiedz
 „przejrzyjmy inbox". Przejdziecie przez to, co się nazbierało, i rozłożycie
-do klocków.
+do obszarów.
 
 Ta notatka jest po to, żeby ją skasować. Niech to będzie Twój pierwszy
 przegląd inboxa.""",
@@ -132,7 +132,7 @@ cotygodniowych przeglądów. Możesz też odpowiedzieć tu, kiedy chcesz.""",
         "readme_title": "Twój drugi mózg",
         "readme_whose": "Drugi mózg: **{name}**. Zbudowany {date}.",
         "readme_struct": "## Struktura: SIXPACK",
-        "readme_struct_intro": """Sześć klocków życia plus trzy foldery systemowe. Folder mówi, O CZYM jest
+        "readme_struct_intro": """Sześć obszarów życia plus trzy foldery systemowe. Folder mówi, O CZYM jest
 notatka. Frontmatter mówi, co z nią teraz zrobić.""",
         "readme_bounds": """## Gdzie to wrzucić
 
@@ -145,7 +145,7 @@ Cztery pytania rozstrzygają dziewięć na dziesięć przypadków:
 - **Refleksja czy praktyka?** „Czego nauczyło mnie nurkowanie o spokoju" do
   `self/`. „Parametry powietrza na 40 metrach" do `play/`.
 - **Cudze czy moje?** Zebrane od innych do `library/`. Wymyślone przeze mnie
-  do klocka tematycznego.""",
+  do obszaru tematycznego.""",
         "readme_fm": """## Frontmatter
 
 Każda notatka zaczyna się tak:
@@ -179,7 +179,7 @@ kasujemy.""",
 
 - Zwykłe pliki tekstowe wygrywają z zamkniętymi aplikacjami: przeniesiesz je
   gdziekolwiek, otworzysz za dwadzieścia lat, przeczyta je każde AI.
-- Nazwy klocków po angielsku (krótkie i przenośne), treść po Twojemu.
+- Nazwy obszarów po angielsku (krótkie i przenośne), treść po Twojemu.
 - Hasła trzymaj w menedżerze haseł, nie tutaj.""",
         "readme_people": "- Notatki o osobach w `people/` prowadzisz **tylko na inicjałach**. Vaulty bywają synchronizowane i wyciekają.",
         "credit": "Mimir zbudował Konrad Gładkowski → konradgladkowski.com",
@@ -640,7 +640,7 @@ def gen_assistant(profile: dict) -> str:
             "## Cotygodniowy przegląd",
             "",
             "Na hasło „przejrzyjmy inbox\" przechodzisz przez `inbox/`, proponujesz",
-            "klocek i tagi, przenosisz po akceptacji. Na koniec zadajesz JEDNO",
+            "obszar i tagi, przenosisz po akceptacji. Na koniec zadajesz JEDNO",
             "pytanie z `inbox/sixpack-do-uzupelnienia.md`. Jedno, nie więcej: ten",
             "mózg wypełnia się tygodniami, nie w jednym przesłuchaniu.",
         ]

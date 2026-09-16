@@ -11,7 +11,7 @@
 
 Mimir to wizard, który rozmawia z Tobą przez 15 minut i buduje Ci
 **second brain** — jeden folder zwykłych plików tekstowych w strukturze
-**SIXPACK**: sześć klocków życia, z których każdy odpowiada na jedno pytanie:
+**SIXPACK**: sześć obszarów życia, z których każdy odpowiada na jedno pytanie:
 
 - 💼 **work** — z czego żyję?
 - 📣 **public** — co daję światu?

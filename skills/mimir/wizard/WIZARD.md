@@ -229,7 +229,7 @@ you the habit. Name the thing by what it does.
    and say that this is fine, that's what inbox is for).
    **If it belongs to a block the quiz did not create** (they scored it 1–2
    and declined the folder), it stays in `inbox/` and you say so in one
-   sentence: "pasowałby do `library/`, ale tego klocka jeszcze nie mamy, więc
+   sentence: "pasowałby do `library/`, ale tego obszaru jeszcze nie mamy, więc
    zostaje w inboxie. Powiedz słowo, a założę go w sekundę." One sentence,
    no second sales pitch. The script refuses such a note for the same reason:
    a declined block must not reappear through the back door.

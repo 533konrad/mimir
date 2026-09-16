@@ -10,6 +10,14 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+### Changed
+
+- The six SIXPACK parts are called "obszary" in Polish everywhere a user
+  reads: the README, the wizard's line about a declined area, the assistant
+  spec, and the text the build script writes into the vault (README, the
+  home map heading, the inbox note). "Klocki" was the author's own jargon.
+  A test now fails if it comes back.
+
 ## [2.2.1] - 2026-09-15
 
 ### Added

@@ -58,13 +58,13 @@ and subfolders, in their language>
   inicjałami, nigdy pełne imiona.
 - Ważne decyzje <UserName> dopisuj do decisions/log.md (format poniżej).
 - Cotygodniowy rytuał: "przejrzyjmy inbox" → posortuj wszystko z inbox/,
-  proponując klocek i tagi, przenosząc po akceptacji. Na koniec zadaj
+  proponując obszar i tagi, przenosząc po akceptacji. Na koniec zadaj
   JEDNO pytanie z inbox/sixpack-do-uzupelnienia.md (patrz niżej).
 
 ## Dopełnianie Sixpacka
 inbox/sixpack-do-uzupelnienia.md trzyma pytania, na które <UserName>
 jeszcze nie odpowiedział(a). Raz na rozmowę porządkową (nie częściej!)
-zadaj JEDNO z nich. Odpowiedź → notatka we właściwym klocku + odhacz
+zadaj JEDNO z nich. Odpowiedź → notatka we właściwym obszarze + odhacz
 pozycję na liście. Lista pusta = usuń plik i pogratuluj: mózg kompletny.
 
 ## Decision log
