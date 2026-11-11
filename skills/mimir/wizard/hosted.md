@@ -136,9 +136,9 @@ Record the choice in the marker, then `--pack`.
 
 **Step 9, finish screen.** The optional weekly question from `WIZARD.md`
 gets the honest answer without asking it as a scheduling offer: digesting
-("przetraw") and the weekly review work best when the vault lives where an
+("odśwież wiedzę") and the weekly review work best when the vault lives where an
 AI can open it again, on their disk, in Drive or on GitHub. A zip in a chat
-cannot tidy itself. PL: "Przetrawianie nowych rzeczy najlepiej działa, gdy
+cannot tidy itself. PL: "Odświeżanie wiedzy najlepiej działa, gdy
 folder leży na Twoim komputerze, Dysku albo GitHubie i otwierasz w nim AI.
 Z poziomu tej rozmowy tego nie ustawię." Then move on.
 

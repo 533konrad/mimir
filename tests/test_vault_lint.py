@@ -4,7 +4,7 @@ The weekly review ("przegląd tygodnia") starts from this report, so its
 numbers have to be right: stale notes, orphans, broken links, one-sided maps,
 the inbox count, open contradictions.
 
-The digest ("przetraw") is done by a model, which a unit test cannot run. What
+The digest ("odśwież wiedzę") is done by a model, which a unit test cannot run. What
 a test CAN pin is the contract a digest is graded against: a fixture vault
 gets three sources, one of them contradicting another, and a hand-written
 reference digest. `check_digest` must pass it, and must catch each way a
@@ -13,7 +13,7 @@ an assistant note with no sources, a source that vanished, a silent log).
 The same grader works on a vault a live model digested:
 
     python3 vault_lint.py VAULT --snapshot before.json
-    ... run "przetraw inbox" in VAULT ...
+    ... run "odśwież pamięć" in VAULT ...
     python3 vault_lint.py VAULT --check-digest before.json
 
 Run: python3 -m unittest discover -s tests -v
@@ -81,7 +81,7 @@ SOURCES = {
 
 
 def reference_digest(vault):
-    """What a correct "przetraw inbox" leaves behind, written by hand."""
+    """What a correct "odśwież pamięć" leaves behind, written by hand."""
     for rel in SOURCES:
         src = vault / rel
         dest = vault / "library" / "zrodla" / src.name
@@ -120,9 +120,9 @@ def reference_digest(vault):
 
     write(vault, "moc/dziennik-zmian.md", note(
         "Dziennik zmian",
-        "- [2026-11-11] przetrawione: [[artykul-powtorki]], [[wywiad-zanurzenie]] → nowe: "
+        "- [2026-11-11] odświeżone: [[artykul-powtorki]], [[wywiad-zanurzenie]] → nowe: "
         "[[powtorki-rozlozone]]; flagi: sprzeczność fiszki vs zanurzenie\n"
-        "- [2026-11-11] przetrawione: [[podcast-wycena]] → nowe: [[wycena-ilustracji]]; "
+        "- [2026-11-11] odświeżone: [[podcast-wycena]] → nowe: [[wycena-ilustracji]]; "
         "zmienione: [[okladka-wydawnictwo]] (zobacz też)\n",
         type="log", horizon="evergreen", author="assistant",
     ))
@@ -340,7 +340,7 @@ class PersonaCarriesTheProtocolTest(_VaultCase):
     def test_assistant_vault_gets_the_protocol_and_the_lint(self):
         self.build()
         persona = (self.vault / "CLAUDE.md").read_text(encoding="utf-8")
-        for phrase in ("przetraw inbox", "author: assistant", "library/zrodla/",
+        for phrase in ("odśwież pamięć", "author: assistant", "library/zrodla/",
                        "moc/dziennik-zmian.md", "[!warning]", "Zobacz też",
                        "przegląd tygodnia", ".mimir/vault_lint.py"):
             self.assertIn(phrase, persona)

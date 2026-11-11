@@ -10,6 +10,16 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+### Changed
+
+- The Polish digest command is now **„odśwież wiedzę z tego artykułu"** for
+  one source and **„odśwież pamięć"** for the whole inbox, instead of
+  „przetraw". The persona section is `## Odśwież wiedzę`, the lint report
+  says „Źródła wpięte w wiedzę", and a test keeps both „kompilacja" and
+  „przetraw" out of user-facing text. English stays "digest". Vaults built
+  with 2.3.0 keep their `## Przetraw` section and work as before; rebuilding
+  the persona picks up the new words.
+
 ## [2.3.0] - 2026-11-11
 
 ### Added

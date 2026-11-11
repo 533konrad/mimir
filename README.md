@@ -96,12 +96,12 @@ Wklej do swojego AI:
 2. Otwórz swoje AI w rozpakowanym folderze (albo dodaj folder do rozmowy).
 3. Napisz: **„Uruchom Mimira"**.
 
-### Po zbudowaniu: „przetraw"
+### Po zbudowaniu: „odśwież wiedzę"
 
 Second brain nie kończy się na folderach. Z asystentem wrzucasz do `inbox/`
 cudzy materiał (artykuł, transkrypcję, notatki z książki) i mówisz
-**„przetraw ten artykuł"** albo **„przetraw inbox"**. Asystent wyciąga
-z niego najważniejsze twierdzenia, zapisuje je w `library/` jako notatki
+**„odśwież wiedzę z tego artykułu"** albo, dla całego inboxa, **„odśwież
+pamięć"**. Asystent wyciąga z niego najważniejsze twierdzenia, zapisuje je w `library/` jako notatki
 podpisane `author: assistant`, łączy z tym, co już masz, a sprzeczności
 oznacza na głos, zamiast po cichu poprawiać. Twoich notatek nie przepisuje:
 najwyżej dopisuje na dole „zobacz też". Oryginał ląduje nietknięty

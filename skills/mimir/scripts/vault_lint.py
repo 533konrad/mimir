@@ -19,7 +19,7 @@ What it reports:
                (`library/sources/` in English vaults)
 * warnings     open `> [!warning]` callouts: contradictions waiting for a human
 
-It also grades a digest ("przetraw" / "digest") against its contract, for
+It also grades a digest ("odśwież wiedzę" / "digest") against its contract, for
 tests and evals: `--snapshot` records the vault before, `--check-digest`
 compares after. Human notes may only gain a "see also" footer, sources must
 arrive in `library/zrodla/` byte-identical, and every note the assistant
@@ -442,7 +442,7 @@ TEXT = {
     "pl": {
         "title": "Przegląd vaulta",
         "inbox": "W inboxie czeka: {n}",
-        "sources": "Przetrawione źródła: {n}",
+        "sources": "Źródła wpięte w wiedzę: {n}",
         "stale": "Aktywne, ale nieruszane od ponad {d} dni",
         "orphans": "Sieroty (nic do nich nie linkuje)",
         "broken": "Zerwane linki",

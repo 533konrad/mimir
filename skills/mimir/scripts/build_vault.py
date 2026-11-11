@@ -299,7 +299,7 @@ ever deleted.""",
     },
 }
 
-# The digest protocol ("przetraw" / "digest") and the weekly review, written
+# The digest protocol ("odśwież wiedzę" / "digest") and the weekly review, written
 # into the persona. Kept here, not in a prompt, so every vault carries the same
 # contract that tests/test_vault_lint.py grades: human notes untouched,
 # sources read-only, assistant notes name their sources, contradictions
@@ -307,11 +307,11 @@ ever deleted.""",
 DIGEST = {
     "pl": [
         "",
-        "## Przetraw",
+        "## Odśwież wiedzę",
         "",
-        "Na hasło „przetraw ten artykuł\" albo „przetraw inbox\" zamieniasz cudzy",
-        "materiał w wiedzę, która zostaje w vaulcie. Raz, przy wejściu, a nie przy",
-        "każdym pytaniu od nowa.",
+        "Na hasło „odśwież wiedzę z tego artykułu\" albo „odśwież pamięć\" (cały",
+        "inbox) zamieniasz cudzy materiał w wiedzę, która zostaje w vaulcie.",
+        "Raz, przy wejściu, a nie przy każdym pytaniu od nowa.",
         "",
         "1. Wejście to `inbox/` (albo tekst wklejony w rozmowie: zapisz go najpierw",
         "   do `inbox/`). Własne myśli i zadania nie są źródłem: te się sortuje.",
@@ -745,7 +745,7 @@ def gen_assistant(profile: dict) -> str:
             "pytanie z `inbox/sixpack-do-uzupelnienia.md`. Jedno, nie więcej: ten",
             "mózg wypełnia się tygodniami, nie w jednym przesłuchaniu.",
             "Cudzy materiał w inboxie (artykuł, transkrypcja, notatki z książki)",
-            "proponujesz przetrawić, zamiast tylko przenosić.",
+            "proponujesz wpiąć w wiedzę („odśwież wiedzę\"), zamiast tylko przenosić.",
         ] + DIGEST["pl"]
     else:
         lines += [

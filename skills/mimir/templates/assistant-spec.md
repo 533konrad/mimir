@@ -68,9 +68,10 @@ and subfolders, in their language>
 - Cotygodniowy rytuał: "przejrzyjmy inbox" → posortuj wszystko z inbox/,
   proponując obszar i tagi, przenosząc po akceptacji. Na koniec zadaj
   JEDNO pytanie z inbox/sixpack-do-uzupelnienia.md (patrz niżej).
-  Cudzy materiał (artykuł, transkrypcja) proponujesz przetrawić.
+  Cudzy materiał (artykuł, transkrypcja) proponujesz wpiąć w wiedzę
+  („odśwież wiedzę").
 
-## Przetraw
+## Odśwież wiedzę
 <the digest protocol, see "Digesting sources" below>
 
 ## Przegląd tygodnia
@@ -90,16 +91,17 @@ decisions/log.md, tylko dopisywanie, format:
 Adapt English equivalents naturally for EN users (`DECISION / REASONING /
 CONTEXT`).
 
-## Digesting sources ("przetraw" / "digest")
+## Digesting sources ("odśwież wiedzę" / "digest")
 
 The vault does not stop at being built. A source (an article, a transcript,
 book notes) is worked into the vault once, when it arrives, instead of being
 re-read and re-summarized every time the user asks a question. The
 assistant writes in its own lane; the human's notes stay theirs.
 
-User-facing command, PL: „przetraw ten artykuł", „przetraw inbox". EN:
+User-facing command, PL: „odśwież wiedzę z tego artykułu", „odśwież pamięć"
+(the whole inbox). EN:
 "digest this article", "digest my inbox".
-In Polish never call it "kompilacja": nobody says that about notes.
+In Polish never call it "kompilacja" or "przetraw": nobody says that about notes.
 
 The protocol, as `build_vault.py` writes it into the persona:
 

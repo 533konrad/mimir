@@ -178,16 +178,17 @@ class NamingTest(unittest.TestCase):
         ]
         self.assertEqual(offenders, [], 'SIXPACK parts are "obszary" for users, never "klocki"')
 
-    def test_digest_is_przetraw_never_kompilacja(self):
-        """Working a source into the vault is "przetraw" for users. "Kompilacja"
-        is programmer's jargon and nobody says it about their notes."""
+    def test_digest_is_odswiez_wiedze_never_kompilacja_or_przetraw(self):
+        """Working a source into the vault is "odśwież wiedzę" for users.
+        "Kompilacja" is programmer's jargon and nobody says it about their
+        notes; "przetraw" was dropped by the maintainer on 2026-11-11."""
         offenders = [
             f"{rel}:{n}: {line.strip()[:80]}"
             for rel in self.SHIPPED
             for n, line in enumerate(read(ROOT / rel).splitlines(), 1)
-            if re.search(r"(?i)kompil", line) and "never call it" not in line
+            if re.search(r"(?i)kompil|przetraw", line) and "never call it" not in line
         ]
-        self.assertEqual(offenders, [], 'the digest is "przetraw" for users, never "kompilacja"')
+        self.assertEqual(offenders, [], 'the digest is "odśwież wiedzę" for users, never "kompilacja" or "przetraw"')
 
 
 class RedLinesTest(unittest.TestCase):

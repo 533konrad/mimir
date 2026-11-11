@@ -14,7 +14,7 @@ description: >
   a pasted link to this repo + "set this up", or in an existing Mimir vault:
   "dokończ Mimira", "dodaj asystenta", "podłącz GitHub". Do NOT use for
   questions answerable in a paragraph (what is PARA/SIXPACK), tidying or
-  rewriting one file, or finding or digesting ("przetraw") notes in a
+  rewriting one file, or finding or digesting ("odśwież") notes in a
   vault — answer those directly.
 license: MIT
 metadata:
@@ -60,15 +60,15 @@ request is any of these, just answer it directly and do **not** start Step 0:
 - a question answerable in a paragraph ("co to jest PARA?", "SIXPACK vs PARA?")
 - tidying, rewriting or summarizing one file or one meeting's notes
 - finding or reading a note in an existing vault ("znajdź notatkę o X")
-- digesting a source or reviewing an existing vault ("przetraw ten artykuł",
-  "przetraw inbox", "przegląd tygodnia" / "digest this", "weekly review"):
+- digesting a source or reviewing an existing vault ("odśwież wiedzę z tego
+  artykułu", "odśwież pamięć", "przegląd tygodnia" / "digest this", "weekly review"):
   the vault's own `CLAUDE.md` / `AGENTS.md` carries that protocol (see
   `templates/assistant-spec.md`), follow it there
 
 The only reasons to run the wizard are: build a new second brain, or finish /
 repair / upgrade an existing Mimir vault (see `wizard/WIZARD.md`, "Coming
 back to an existing folder"). Weekly housekeeping ("przejrzyjmy inbox",
-"przetraw", "przegląd tygodnia") is the vault's own assistant's job, not the
+"odśwież wiedzę", "przegląd tygodnia") is the vault's own assistant's job, not the
 wizard's.
 
 **Rule for an existing vault:** when you land in a folder that already holds
