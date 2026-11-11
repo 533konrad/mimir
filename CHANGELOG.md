@@ -54,6 +54,8 @@ maintainer decides to release: the heading gets a number and a date, and the
   on disk, in Drive or on GitHub.
 - `SKILL.md`, `AGENTS.md`: digesting and the weekly review in an existing
   vault are the vault assistant's job, not a reason to start the wizard.
+- CI runs on `ubuntu-24.04`: `ubuntu-latest` moved to 26.04, which no
+  longer offers Python 3.9, the oldest version the scripts support.
 
 ## [2.2.2] - 2026-09-17
 
