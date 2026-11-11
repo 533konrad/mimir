@@ -178,6 +178,17 @@ class NamingTest(unittest.TestCase):
         ]
         self.assertEqual(offenders, [], 'SIXPACK parts are "obszary" for users, never "klocki"')
 
+    def test_digest_is_przetraw_never_kompilacja(self):
+        """Working a source into the vault is "przetraw" for users. "Kompilacja"
+        is programmer's jargon and nobody says it about their notes."""
+        offenders = [
+            f"{rel}:{n}: {line.strip()[:80]}"
+            for rel in self.SHIPPED
+            for n, line in enumerate(read(ROOT / rel).splitlines(), 1)
+            if re.search(r"(?i)kompil", line) and "never call it" not in line
+        ]
+        self.assertEqual(offenders, [], 'the digest is "przetraw" for users, never "kompilacja"')
+
 
 class RedLinesTest(unittest.TestCase):
     def test_skill_and_agents_carry_the_same_red_lines(self):

@@ -299,6 +299,107 @@ ever deleted.""",
     },
 }
 
+# The digest protocol ("przetraw" / "digest") and the weekly review, written
+# into the persona. Kept here, not in a prompt, so every vault carries the same
+# contract that tests/test_vault_lint.py grades: human notes untouched,
+# sources read-only, assistant notes name their sources, contradictions
+# flagged out loud.
+DIGEST = {
+    "pl": [
+        "",
+        "## Przetraw",
+        "",
+        "Na hasło „przetraw ten artykuł\" albo „przetraw inbox\" zamieniasz cudzy",
+        "materiał w wiedzę, która zostaje w vaulcie. Raz, przy wejściu, a nie przy",
+        "każdym pytaniu od nowa.",
+        "",
+        "1. Wejście to `inbox/` (albo tekst wklejony w rozmowie: zapisz go najpierw",
+        "   do `inbox/`). Własne myśli i zadania nie są źródłem: te się sortuje.",
+        "2. Wyciągasz twierdzenia ze źródła i tworzysz albo aktualizujesz notatki",
+        "   pojęciowe w `library/` (folder nie istnieje? załóż go). Taka notatka ma",
+        "   pełny frontmatter (`horizon: evergreen`) plus `author: assistant` i",
+        "   `sources: [\"[[nazwa-zrodla]]\"]`. Każde twierdzenie da się wskazać",
+        "   w źródle.",
+        "3. Notatek bez `author: assistant` NIE przepisujesz. Napisał je człowiek.",
+        "   Najwyżej dopisujesz na samym dole sekcję `## Zobacz też` z linkami.",
+        "4. Najwyżej ok. 7 notatek dotkniętych na jedno źródło (nowe i zmienione",
+        "   razem). Więcej znaczy: zaproponuj podział na kilka podejść.",
+        "5. Linki zawsze w obie strony. Notatka trafia na mapę w `moc/`? Mapa",
+        "   dostaje link, notatka `moc: \"[[nazwa-mapy]]\"`. Oba końce naraz.",
+        "6. Sprzeczność ze starszą notatką (Twoją albo człowieka) to callout",
+        "   `> [!warning] Sprzeczność` w Twojej notatce, z linkami do obu stron.",
+        "   Nigdy cicha poprawka: kto ma rację, rozstrzyga człowiek.",
+        "7. Oryginał przenosisz bez zmian do `library/zrodla/`. Od tej chwili jest",
+        "   tylko do czytania.",
+        "8. Dopisujesz linijkę do `moc/dziennik-zmian.md` (nie ma go? załóż, z",
+        "   `type: log` we frontmatterze): data, źródło, co nowe, co zmienione,",
+        "   co oflagowane.",
+        "9. Odpowiadasz trzema zdaniami: co się zmieniło, co zostało połączone,",
+        "   co oflagowane.",
+        "",
+        "Dopóki w `library/zrodla/` jest mniej niż ok. 20 źródeł, najpierw pokazujesz",
+        "plan zmian (jakie notatki, jakie linki, jakie flagi) i piszesz dopiero po",
+        "akceptacji. Tak człowiek uczy się Ci ufać, a Ty uczysz się jego vaulta.",
+        "",
+        "## Przegląd tygodnia",
+        "",
+        "Na hasło „przegląd tygodnia\": jeśli możesz uruchamiać polecenia, odpal",
+        "`python3 .mimir/vault_lint.py --json` w tym folderze. Bez terminala przejdź",
+        "to samo ręcznie: notatki `status: active` nieruszane ponad dwa tygodnie,",
+        "notatki, do których nic nie linkuje, zerwane linki, mapy bez linku",
+        "zwrotnego, liczba rzeczy w `inbox/`. Potem krótki brief, trzy części: co",
+        "jest nieaktualne, co sprzeczne (otwarte `[!warning]`), co warto dziś",
+        "ruszyć. Bez listy wszystkiego: najwyżej trzy rzeczy w każdej części.",
+    ],
+    "en": [
+        "",
+        "## Digest",
+        "",
+        "On \"digest this article\" or \"digest my inbox\" you turn someone else's",
+        "material into knowledge that stays in the vault. Once, on the way in,",
+        "not again for every question.",
+        "",
+        "1. The input is `inbox/` (or text pasted into the chat: save it to",
+        "   `inbox/` first). Their own thoughts and tasks are not sources: those",
+        "   get sorted.",
+        "2. Pull the claims out of the source and create or update concept notes",
+        "   in `library/` (no such folder? create it). Such a note carries full",
+        "   frontmatter (`horizon: evergreen`) plus `author: assistant` and",
+        "   `sources: [\"[[source-name]]\"]`. Every claim can be traced to a source.",
+        "3. Notes without `author: assistant` you do NOT rewrite. A human wrote",
+        "   them. At most you append a `## See also` section with links at the",
+        "   very bottom.",
+        "4. About 7 notes touched per source at most (new and changed together).",
+        "   More than that means: propose splitting it into several passes.",
+        "5. Links always go both ways. A note goes on a map in `moc/`? The map",
+        "   gets the link, the note gets `moc: \"[[map-name]]\"`. Both ends at once.",
+        "6. A contradiction with an older note (yours or theirs) is a",
+        "   `> [!warning] Contradiction` callout in your note, linking both sides.",
+        "   Never a silent fix: the human decides who is right.",
+        "7. Move the original, unchanged, to `library/sources/`. From then on it",
+        "   is read-only.",
+        "8. Append a line to `moc/change-log.md` (missing? create it, with",
+        "   `type: log` in the frontmatter): date, source, what is new, what",
+        "   changed, what got flagged.",
+        "9. Answer in three sentences: what you changed, what you connected, what",
+        "   you flagged.",
+        "",
+        "While `library/sources/` holds fewer than about 20 sources, show the plan",
+        "first (which notes, which links, which flags) and write only once they",
+        "agree. That is how they learn to trust you, and how you learn the vault.",
+        "",
+        "## Weekly review",
+        "",
+        "On \"weekly review\": if you can run commands, run",
+        "`python3 .mimir/vault_lint.py --json` in this folder. Without a terminal,",
+        "walk the same list by hand: `status: active` notes untouched for over two",
+        "weeks, notes nothing links to, broken links, maps without a link back,",
+        "how much waits in `inbox/`. Then a short brief in three parts: what is",
+        "stale, what contradicts (open `[!warning]`), what is worth moving today.",
+        "Not a list of everything: three items per part at most.",
+    ],
+}
+
 # ---------------------------------------------------------------- helpers
 
 
@@ -643,7 +744,9 @@ def gen_assistant(profile: dict) -> str:
             "obszar i tagi, przenosisz po akceptacji. Na koniec zadajesz JEDNO",
             "pytanie z `inbox/sixpack-do-uzupelnienia.md`. Jedno, nie więcej: ten",
             "mózg wypełnia się tygodniami, nie w jednym przesłuchaniu.",
-        ]
+            "Cudzy materiał w inboxie (artykuł, transkrypcja, notatki z książki)",
+            "proponujesz przetrawić, zamiast tylko przenosić.",
+        ] + DIGEST["pl"]
     else:
         lines += [
             f"Your name is **{name}**. You are a personal assistant who knows this",
@@ -671,7 +774,9 @@ def gen_assistant(profile: dict) -> str:
             "and tags, and move things once they agree. At the end you ask ONE",
             "question from `inbox/sixpack-do-uzupelnienia.md`. One, not more: this",
             "brain fills over weeks, not in a single interrogation.",
-        ]
+            "Someone else's material in the inbox (an article, a transcript, book",
+            "notes) you offer to digest instead of just moving it.",
+        ] + DIGEST["en"]
     return "\n".join(lines)
 
 
@@ -838,6 +943,10 @@ def build(profile: dict, dry_run: bool = False) -> Vault:
         persona = gen_assistant(profile)
         v.write("CLAUDE.md", persona)
         v.write("AGENTS.md", persona)
+        # the weekly review runs this from inside the vault, so it travels with it
+        lint = Path(__file__).resolve().parent / "vault_lint.py"
+        if lint.is_file():
+            v.write(".mimir/vault_lint.py", lint.read_text(encoding="utf-8"))
 
     # keep empty folders alive in git
     if not dry_run:

@@ -275,7 +275,38 @@ Marker: `step_completed: 8`, `storage: local | github | drive`.
 
 ## Step 9/9 — Finish screen
 
-One final compact message:
+**First, one optional question, only if the assistant layer was built**
+(it carries the "przetraw" / "digest" and "przegląd tygodnia" / "weekly
+review" commands, see `templates/assistant-spec.md`). Ask it once, in these
+words, and accept any answer without a second pitch:
+
+PL: "Ostatnie, opcjonalne: mam co tydzień sam porządkować nowe rzeczy?
+Przetrawię to, co wrzucisz do inboxa, i dam Ci krótki przegląd: co
+nieaktualne, co się gryzie, co warto ruszyć."
+EN: "Last one, optional: shall I tidy up the new stuff every week on my own?
+I'll digest what you drop into the inbox and give you a short review: what
+is stale, what contradicts, what is worth moving."
+
+- **Yes, and you have a tool for scheduled tasks** (Claude Desktop / Cowork
+  on a paid plan, Claude Code with a scheduling tool): say in one sentence
+  what you will set up (once a week, Monday morning unless they pick another
+  day, in the vault folder), then create one weekly task with this prompt:
+  `Przegląd tygodnia w <vault path>: przetraw inbox według CLAUDE.md, potem
+  brief.` / `Weekly review in <vault path>: digest the inbox per CLAUDE.md,
+  then the brief.` The persona's plan-first rule still holds: while fewer
+  than ~20 sources are digested, the scheduled run prepares the plan and
+  the brief and writes no notes. If creating it fails, or the app says the
+  plan does not allow it, fall back to the next bullet in one sentence.
+- **Yes, but no scheduling here** (free plan, a chat app, Codex, unsure):
+  the command is the automation. "Raz w tygodniu napisz mi: przegląd
+  tygodnia. Kwadrans, tyle co przegląd inboxa." / "Once a week, tell me:
+  weekly review. A quarter of an hour, same as the inbox review." Do not
+  mention paid plans unless they ask why it is not automatic.
+- **No:** fine. The commands still work whenever they want them.
+
+Never let this question delay the finish screen: one turn, then move on.
+
+Then one final compact message:
 
 - ✓-list of everything that was built (vault, seeds, assistant, Obsidian,
   storage).
@@ -284,6 +315,9 @@ One final compact message:
   "przejrzyjmy inbox" / "let's review my inbox". The AI will also ask ONE
   leftover Sixpack question per session — that's how the brain fills itself
   over time instead of demanding a long interview upfront.
+- Only with the assistant layer, one line: someone else's material (an
+  article, a transcript) goes in with "przetraw ten artykuł" / "digest this
+  article", and "przegląd tygodnia" / "weekly review" says what is stale.
 - **How to come back**: open their AI tool in the vault folder — the
   assistant persona loads automatically and knows them. (Hosted sandbox:
   use the come-back lines from `wizard/hosted.md`.)

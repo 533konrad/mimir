@@ -23,6 +23,10 @@ and when something fails, offer a fallback instead of an error dump.
    `wizard/storage-github.md`, `wizard/storage-drive.md`,
    `wizard/storage-local.md`, `wizard/hosted.md`, `wizard/obsidian.md`,
    `templates/vault-spec.md`, `templates/assistant-spec.md`.
+3. Not a wizard job: digesting a source or reviewing an existing vault
+   ("przetraw ten artykuł", "przegląd tygodnia" / "digest this", "weekly
+   review"). The vault's own `AGENTS.md` carries that protocol; follow it
+   there and do not start the wizard.
 
 ## Hard rules
 

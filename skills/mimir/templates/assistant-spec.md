@@ -16,7 +16,15 @@ them, and where everything goes.
     goals.md         # their goals, updated over time
   decisions/
     log.md           # append-only decision log
+  .mimir/
+    vault_lint.py    # copy of scripts/vault_lint.py, run by the weekly review
 ```
+
+Two more files appear later, written by the assistant itself during its
+first digest: `library/zrodla/` (EN: `library/sources/`) for digested
+originals and `moc/dziennik-zmian.md` (EN: `moc/change-log.md`) for the
+change log. File and subfolder names follow the user's language, like every
+other subfolder in the vault.
 
 `CLAUDE.md` and `AGENTS.md` carry **the same content** — generate once,
 write twice. Two filenames exist only so every tool finds its entry point;
@@ -60,6 +68,13 @@ and subfolders, in their language>
 - Cotygodniowy rytuał: "przejrzyjmy inbox" → posortuj wszystko z inbox/,
   proponując obszar i tagi, przenosząc po akceptacji. Na koniec zadaj
   JEDNO pytanie z inbox/sixpack-do-uzupelnienia.md (patrz niżej).
+  Cudzy materiał (artykuł, transkrypcja) proponujesz przetrawić.
+
+## Przetraw
+<the digest protocol, see "Digesting sources" below>
+
+## Przegląd tygodnia
+<the weekly review, see "Weekly review" below>
 
 ## Dopełnianie Sixpacka
 inbox/sixpack-do-uzupelnienia.md trzyma pytania, na które <UserName>
@@ -74,6 +89,77 @@ decisions/log.md, tylko dopisywanie, format:
 
 Adapt English equivalents naturally for EN users (`DECISION / REASONING /
 CONTEXT`).
+
+## Digesting sources ("przetraw" / "digest")
+
+The vault does not stop at being built. A source (an article, a transcript,
+book notes) is worked into the vault once, when it arrives, instead of being
+re-read and re-summarized every time the user asks a question. The
+assistant writes in its own lane; the human's notes stay theirs.
+
+User-facing command, PL: „przetraw ten artykuł", „przetraw inbox". EN:
+"digest this article", "digest my inbox".
+In Polish never call it "kompilacja": nobody says that about notes.
+
+The protocol, as `build_vault.py` writes it into the persona:
+
+1. **Input** is `inbox/`, or text pasted into the chat (saved to `inbox/`
+   first). The user's own thoughts and tasks are not sources: those get
+   sorted by "przejrzyjmy inbox", not digested.
+2. **Claims → concept notes** in `library/` (created if the quiz skipped
+   it). Full frontmatter, `horizon: evergreen`, plus two keys only the
+   assistant writes:
+   ```yaml
+   author: assistant
+   sources: ["[[nazwa-zrodla]]"]
+   ```
+3. **Human notes are not rewritten.** A note without `author: assistant`
+   gets, at most, a `## Zobacz też` / `## See also` section appended at the
+   very bottom, with links and nothing else.
+4. **About 7 notes touched per source**, new and changed together. More
+   means splitting the source into several passes.
+5. **Links both ways**, and the existing MOC rule: a note added to a map
+   gets `moc: "[[map]]"` in the same write.
+6. **A contradiction is flagged, never fixed silently:** a
+   `> [!warning] Sprzeczność` / `> [!warning] Contradiction` callout in the
+   assistant's note, linking both sides. The human decides.
+7. **The original moves, unchanged, to `library/zrodla/`**
+   (`library/sources/`) and is read-only from then on.
+8. **A line in `moc/dziennik-zmian.md`** (`moc/change-log.md`), a file with
+   `type: log` in its frontmatter so the lint does not treat it as a map:
+   date, source, what is new, what changed, what got flagged.
+9. **The answer is three sentences:** what changed, what got connected,
+   what got flagged.
+
+**Plan first, for the first ~20 sources** (counted in `library/zrodla/`):
+the assistant shows which notes it would create or touch, which links and
+which flags, and writes only after a yes. Trust is earned on the user's
+vault, not assumed.
+
+Be honest about the payoff if asked: the compounding effect (new sources
+landing on notes that already exist, contradictions surfacing on their own)
+shows up after roughly 50–100 sources. Before that, digesting mostly means
+order: sources in one place, claims findable, links instead of piles.
+
+`scripts/vault_lint.py --snapshot` / `--check-digest` grades a digest
+against points 2, 3, 7 and 8; `tests/test_vault_lint.py` pins it on a
+fixture vault.
+
+## Weekly review ("przegląd tygodnia" / "weekly review")
+
+1. If the environment can run commands: `python3 .mimir/vault_lint.py
+   --json` in the vault. It reports active notes untouched for more than 14
+   days, orphans, broken wikilinks, one-sided maps, what waits in `inbox/`,
+   how many sources are digested, and open `[!warning]` callouts.
+2. Without a terminal (a chat app, a Project): walk the same list by hand.
+3. The brief, three parts, at most three items each: what is stale, what
+   contradicts, what is worth moving today.
+
+**Automation is optional.** Scheduled tasks exist only on paid plans
+(Claude Desktop / Cowork), and Mimir works on every plan, so the weekly
+review is a command first. The wizard offers to schedule it once, at the
+end (WIZARD.md, Step 9). A scheduled run never writes notes while the
+plan-first phase lasts: it only prepares the plan and the brief.
 
 ## Progressive fill — why it exists
 
@@ -127,8 +213,8 @@ Storage: <local / GitHub / Drive>.
 
 ## A word on scope
 
-v1 assistant = persona + context + decision log + progressive fill. No
-custom rules folders, no skills, no modes — those are power-user features
+v1 assistant = persona + context + decision log + progressive fill +
+digest + weekly review. No custom rules folders, no skills, no modes — those are power-user features
 the user can grow into. If they ask "can it do more?", the honest answer:
 yes, this structure is the seed of exactly such a system, and it grows by
 asking the assistant to remember new rules in its own files.

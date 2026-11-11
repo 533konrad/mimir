@@ -10,6 +10,51 @@ maintainer decides to release: the heading gets a number and a date, and the
 
 ## [Unreleased]
 
+### Added
+
+- **"Przetraw" / "digest": the vault keeps itself in order after the build.**
+  The assistant layer now carries a digest protocol. "Przetraw ten artykuł",
+  "przetraw inbox" (EN: "digest this article", "digest my inbox") turn a
+  source from `inbox/` into concept notes in `library/`, signed
+  `author: assistant` with `sources: [...]`. Human notes are never rewritten,
+  at most they get a "Zobacz też" / "See also" footer of links. About 7 notes
+  touched per source, links both ways (the MOC rule holds), a contradiction
+  is a `> [!warning]` callout linking both sides instead of a silent fix, the
+  original moves unchanged to `library/zrodla/` (`library/sources/`), every
+  digest adds a line to `moc/dziennik-zmian.md` (`moc/change-log.md`), and
+  the answer is three sentences. For the first ~20 sources the assistant
+  shows the plan and writes only after a yes.
+- **"Przegląd tygodnia" / "weekly review"**: a brief of what is stale, what
+  contradicts and what is worth moving today, built on
+  `scripts/vault_lint.py` where the environment has a terminal and by hand
+  where it does not.
+- `scripts/vault_lint.py` (stdlib, deterministic): active notes untouched
+  for more than 14 days, orphans, broken wikilinks, one-sided maps, the
+  inbox count, digested sources, open `[!warning]` callouts. Readable report
+  in the vault's language, `--json` for the assistant. `--snapshot` and
+  `--check-digest` grade a digest against its contract. Vaults with the
+  assistant get a copy at `.mimir/vault_lint.py`.
+- One optional question at the end of the wizard (Step 9, assistant vaults
+  only): "mam co tydzień sam porządkować nowe rzeczy?". Yes with a
+  scheduling tool (Claude Desktop on a paid plan) proposes one weekly task;
+  anywhere else the weekly command is the automation. Mimir still works on
+  every plan.
+- README (PL + EN): what digesting does, and honestly that the snowball
+  effect arrives after roughly 50–100 sources; before that it is mostly
+  order.
+- Tests: the lint, and the digest contract on a fixture vault with three
+  sources, one contradicting another (links resolve, the warning links both
+  sides, human notes keep every original byte, each way of breaking the
+  contract is caught). A test keeps "kompilacja" out of user-facing text.
+
+### Changed
+
+- `hosted.md`: in a chat app the weekly question gets an honest sentence
+  instead of a scheduling offer: digesting works best when the vault lives
+  on disk, in Drive or on GitHub.
+- `SKILL.md`, `AGENTS.md`: digesting and the weekly review in an existing
+  vault are the vault assistant's job, not a reason to start the wizard.
+
 ## [2.2.2] - 2026-09-17
 
 ### Changed

@@ -96,6 +96,27 @@ Wklej do swojego AI:
 2. Otwórz swoje AI w rozpakowanym folderze (albo dodaj folder do rozmowy).
 3. Napisz: **„Uruchom Mimira"**.
 
+### Po zbudowaniu: „przetraw"
+
+Second brain nie kończy się na folderach. Z asystentem wrzucasz do `inbox/`
+cudzy materiał (artykuł, transkrypcję, notatki z książki) i mówisz
+**„przetraw ten artykuł"** albo **„przetraw inbox"**. Asystent wyciąga
+z niego najważniejsze twierdzenia, zapisuje je w `library/` jako notatki
+podpisane `author: assistant`, łączy z tym, co już masz, a sprzeczności
+oznacza na głos, zamiast po cichu poprawiać. Twoich notatek nie przepisuje:
+najwyżej dopisuje na dole „zobacz też". Oryginał ląduje nietknięty
+w `library/zrodla/`. Przez pierwsze ~20 źródeł najpierw pokazuje plan,
+pisze po Twoim „tak".
+
+**„Przegląd tygodnia"** mówi, co się zestarzało, co się gryzie i co warto
+dziś ruszyć. Działa na każdym planie jako komenda; na płatnym planie Claude
+Desktop możesz ustawić, żeby szło samo co tydzień.
+
+Uczciwie: efekt kuli śnieżnej (nowe źródło trafia na notatki, które już
+są, sprzeczności wychodzą same) przychodzi po mniej więcej 50–100
+źródłach. Wcześniej to głównie porządek: źródła w jednym miejscu, linki
+zamiast stosów.
+
 ### Prywatność
 
 Wszystko powstaje na **Twoim** komputerze i **Twoich** kontach. Mimir nigdy
@@ -185,6 +206,27 @@ way, Mimir proposes a workaround itself.
 2. Open your AI in the unpacked folder (or add the folder to a chat).
 3. Say: **"Run Mimir"**.
 
+### After the build: "digest"
+
+A second brain does not stop at folders. With the assistant, you drop
+someone else's material into `inbox/` (an article, a transcript, book
+notes) and say **"digest this article"** or **"digest my inbox"**. The
+assistant pulls out the key claims, writes them into `library/` as notes
+signed `author: assistant`, links them to what you already have, and flags
+contradictions out loud instead of quietly fixing them. It never rewrites
+your notes: at most it appends a "see also" at the bottom. The original
+lands untouched in `library/sources/`. For the first ~20 sources it shows
+the plan first and writes after your "yes".
+
+**"Weekly review"** tells you what went stale, what contradicts and what is
+worth moving today. It works on every plan as a command; on a paid Claude
+Desktop plan you can have it run by itself every week.
+
+Honestly: the snowball effect (a new source lands on notes that already
+exist, contradictions surface on their own) arrives after roughly 50–100
+sources. Before that it is mostly order: sources in one place, links
+instead of piles.
+
 ### Privacy
 
 Everything is created on **your** machine and **your** accounts. Mimir never
@@ -199,6 +241,7 @@ asks for passwords — logins happen in your own browser. Your notes repo is
 skills/mimir/
 ├── SKILL.md           # entry point for Claude & skills-compatible agents
 ├── wizard/            # the wizard flow + storage & Obsidian guides
+├── scripts/           # build_vault.py (builds the vault), vault_lint.py (weekly review)
 └── templates/         # vault structure spec + assistant layer spec
 AGENTS.md              # entry point for Codex & other agents
 CLAUDE.md              # entry point for Claude Code opened in this folder

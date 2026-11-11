@@ -134,8 +134,15 @@ all need the user's machine. Offer, one line each:
 
 Record the choice in the marker, then `--pack`.
 
-**Step 9, finish screen.** Replace "how to come back" with what works from
-a chat app:
+**Step 9, finish screen.** The optional weekly question from `WIZARD.md`
+gets the honest answer without asking it as a scheduling offer: digesting
+("przetraw") and the weekly review work best when the vault lives where an
+AI can open it again, on their disk, in Drive or on GitHub. A zip in a chat
+cannot tidy itself. PL: "Przetrawianie nowych rzeczy najlepiej działa, gdy
+folder leży na Twoim komputerze, Dysku albo GitHubie i otwierasz w nim AI.
+Z poziomu tej rozmowy tego nie ustawię." Then move on.
+
+Replace "how to come back" with what works from a chat app:
 
 - The assistant layer (`CLAUDE.md`, `AGENTS.md`, `context/me.md`) loads by
   itself when the folder is opened in an AI tool on their computer (Claude
